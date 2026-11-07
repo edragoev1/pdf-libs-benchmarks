@@ -2,8 +2,8 @@
 
 Apache PDFBox, iText, OpenPDF and PDFjet, making the same business documents
 the way each library's own documentation shows, with PDFjet's C#, Go and
-Swift versions alongside. **The report: [report/pdf-benchmarks.html](report/pdf-benchmarks.html)**,
-also as a PDF, [report/pdf-benchmarks.pdf](report/pdf-benchmarks.pdf) ([ARTICLE.md](ARTICLE.md) is
+Swift versions alongside. **The report: [report/pdf-libs-benchmarks.html](report/pdf-libs-benchmarks.html)**,
+also as a PDF, [report/pdf-libs-benchmarks.pdf](report/pdf-libs-benchmarks.pdf) ([ARTICLE.md](ARTICLE.md) is
 its text).
 
 Written by the author of PDFjet, so everything needed to check it is here:

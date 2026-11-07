@@ -44,8 +44,8 @@ EOF
 rm -rf classes && mkdir classes
 (cd "$PDFJET" && javac -O -encoding utf-8 -nowarn $(find com/pdfjet -name '*.java') -d "$OLDPWD/classes")
 javac -nowarn -encoding utf-8 -cp classes -d classes Report.java
-java -cp classes Report article.md charts.txt pdf-benchmarks.pdf
-qpdf --check pdf-benchmarks.pdf > /dev/null && echo "pdf-benchmarks.pdf: $(pdfinfo pdf-benchmarks.pdf | awk '/^Pages/ {print $2}') pages, qpdf ok"
+java -cp classes Report article.md charts.txt pdf-libs-benchmarks.pdf
+qpdf --check pdf-libs-benchmarks.pdf > /dev/null && echo "pdf-libs-benchmarks.pdf: $(pdfinfo pdf-libs-benchmarks.pdf | awk '/^Pages/ {print $2}') pages, qpdf ok"
 # The same report as one web page, from the same files, with its fonts in
 # fonts/ beside it: PDFjet's IBM Plex Sans and Cascadia Mono, subset to Latin
 # and the signs the page uses, as WOFF2, with their licenses
@@ -58,5 +58,5 @@ for f in IBMPlexSans/IBMPlexSans-Regular IBMPlexSans/IBMPlexSans-SemiBold IBMPle
 done
 cp -p "$PDFJET/resources/fonts/IBMPlexSans/license.txt" fonts/IBMPlexSans-license.txt
 cp -p "$PDFJET/resources/fonts/CascadiaMono/LICENSE" fonts/CascadiaMono-license.txt
-./make-html.py article.md charts.txt pdf-benchmarks.html
-echo "pdf-benchmarks.html: $(grep -o 'class="chart"' pdf-benchmarks.html | wc -l) charts"
+./make-html.py article.md charts.txt pdf-libs-benchmarks.html
+echo "pdf-libs-benchmarks.html: $(grep -o 'class="chart"' pdf-libs-benchmarks.html | wc -l) charts"

@@ -6,7 +6,7 @@ figure is typed by hand. The page keeps the PDF's order and look on one long
 page; the Markdown is the small part of it the article uses: headings,
 paragraphs, lists, tables, bold, italics, code and the repository's address.
 
-    ./make-html.py article.md charts.txt pdf-benchmarks.html
+    ./make-html.py article.md charts.txt pdf-libs-benchmarks.html
 """
 import html
 import re
