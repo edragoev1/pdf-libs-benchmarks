@@ -6,7 +6,7 @@ Claude. I commissioned this benchmark; Claude chose
 the documents, their content and the way each library is used, wrote the
 programs, ran them and wrote the tables. Both are reasons to be suspicious
 of the results, so everything needed to check them is published in
-github.com/edragoev1/pdf-benchmarks: the specification of the documents,
+github.com/edragoev1/pdf-libs-benchmarks: the specification of the documents,
 every program, the scripts that run and check them, and the raw results.
 
 **If we have configured a library badly, or used it in a way its users
@@ -263,7 +263,7 @@ are larger because of that encoder, not because of Swift.
 
 ## Reproduce it
 
-Everything is in github.com/edragoev1/pdf-benchmarks: SPEC.md, the text of
+Everything is in github.com/edragoev1/pdf-libs-benchmarks: SPEC.md, the text of
 the notice, the logo and the photos, the program of each library and port,
 the run and check scripts, and the raw results with their logs. java/run.sh
 runs the four Java libraries (about 15 minutes) and java/check.sh checks

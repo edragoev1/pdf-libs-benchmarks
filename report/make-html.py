@@ -13,7 +13,7 @@ import re
 import sys
 
 TITLE = "Generating PDFs in Java: four libraries compared"
-REPOSITORY = "github.com/edragoev1/pdf-benchmarks"
+REPOSITORY = "github.com/edragoev1/pdf-libs-benchmarks"
 
 # The places where the article speaks of pages, as on one page it has none
 ON_ONE_PAGE = [
