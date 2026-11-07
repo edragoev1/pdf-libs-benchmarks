@@ -58,8 +58,8 @@ exec_performance() {
     exec_inhibited
 }
 export -f exec_performance
-powerprofilesctl launch --profile performance --reason "pdf-benchmarks: the benchmark is running" -- \
-    systemd-inhibit --what=idle:sleep:handle-lid-switch --who=pdf-benchmarks \
+powerprofilesctl launch --profile performance --reason "pdf-libs-benchmarks: the benchmark is running" -- \
+    systemd-inhibit --what=idle:sleep:handle-lid-switch --who=pdf-libs-benchmarks \
     --why="The benchmark is running" bash -c 'exec_performance'
 status=$?
 step "done ($( [ $status = 0 ] && echo "every step passed" || echo "a step FAILED: see above"))"
