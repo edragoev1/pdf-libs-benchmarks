@@ -13,6 +13,9 @@ import re
 import sys
 
 TITLE = "Generating PDFs in Java: four libraries compared"
+# The line under the title in a search result, 160 characters at most
+DESCRIPTION = ("PDFjet, iText, OpenPDF and Apache PDFBox compared on speed, memory and file size, "
+               "with every program, script and raw result published to check them.")
 REPOSITORY = "github.com/edragoev1/pdf-libs-benchmarks"
 
 # The places where the article speaks of pages, as on one page it has none
@@ -209,6 +212,7 @@ def main():
     page = ['<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">',
             '<meta name="viewport" content="width=device-width, initial-scale=1">',
             "<title>%s</title>" % html.escape(TITLE),
+            '<meta name="description" content="%s">' % html.escape(DESCRIPTION, quote=True),
             "<style>" + STYLE + "</style>\n</head>\n<body>\n<main>",
             '<div class="mark"></div>', "<h1>%s</h1>" % html.escape(TITLE),
             '<p class="lead">Five business documents and a batch of letters, made by each library the way '
