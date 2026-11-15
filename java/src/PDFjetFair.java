@@ -2,9 +2,12 @@ import java.io.*;
 import java.util.*;
 import com.pdfjet.*;
 
-// PDFjet, from its source: Table with a header row for the invoice and the
-// statement (Table.drawOn(pdf, first, pages, ...) breaks the rows onto new
-// pages, and the footers are added to the pages it returns), TextFrame for
+// PDFjet, from its source: Table with a header row for the invoice; for the
+// statement BigTable, the class for long tables of one-line rows, which
+// breaks the rows onto new pages and writes the footers "Page n of N", and
+// Table too, as the task statement-table (Table.drawOn(pdf, first, pages,
+// ...) breaks the rows onto new pages, and the footers are added to the
+// pages it returns); TextFrame for
 // the flowing paragraphs of the report and the letters, TextLine for the
 // headings and single lines, Image for the logo and the photos. Every Font
 // object is made from the font bytes, per document, as a server does;
@@ -100,6 +103,42 @@ public class PDFjetFair extends Common {
         PDF pdf = new PDF(buf);
         Font regular = font(pdf, REGULAR);
         Font bold = font(pdf, BOLD);
+        regular.setSize(TABLE);
+        bold.setSize(TABLE);
+        Page first = new Page(pdf, Letter.PORTRAIT);
+        line(bold, HEADING, STATEMENT_TITLE, M, M + 16f).drawOn(first);
+        line(regular, BODY, STATEMENT_SUBTITLE, M, M + 36f).drawOn(first);
+
+        BigTable table = new BigTable(pdf, bold, regular, Letter.PORTRAIT);
+        table.setNumberOfColumns(STATEMENT_HEADER.length);
+        table.setTableData(STATEMENT_HEADER, Arrays.asList(statementRows()));
+        float[] percents = new float[STATEMENT_WIDTHS.length];
+        for (int c = 0; c < percents.length; c++) {
+            percents[c] = STATEMENT_WIDTHS[c] / TEXT_W * 100f;
+            if (STATEMENT_RIGHT[c]) {
+                table.setTextAlignment(c, Alignment.RIGHT);
+            }
+        }
+        table.setColumnWidthsInPercent(percents);
+        table.setPadding(SIDE_PAD).setVerticalPadding(STATEMENT_PAD);
+        table.setShadingColor(Color.transparent).setHeaderColor(0xE6E6E6);
+        table.setVerticalLines(false).setBorderColor(Color.black);
+        table.setFooter("Page {page} of {pages}", regular).setFooterFontSize(FOOTER).setFooterOffset(H - FOOTER_BASELINE);
+        table.setLocation(M, M);
+        table.setFirstPage(first, M + 50f);
+        table.setBottomMargin(M);
+        table.complete();
+        pdf.complete();
+        return buf.toByteArray();
+    }
+    // end statement
+
+    // task statement-table
+    @Override byte[] statementTable() throws Exception {
+        ByteArrayOutputStream buf = new ByteArrayOutputStream();
+        PDF pdf = new PDF(buf);
+        Font regular = font(pdf, REGULAR);
+        Font bold = font(pdf, BOLD);
         Page first = new Page(pdf, Letter.PORTRAIT, Page.DETACHED);
         line(bold, HEADING, STATEMENT_TITLE, M, M + 16f).drawOn(first);
         line(regular, BODY, STATEMENT_SUBTITLE, M, M + 36f).drawOn(first);
@@ -121,7 +160,7 @@ public class PDFjetFair extends Common {
         pdf.complete();
         return buf.toByteArray();
     }
-    // end statement
+    // end statement-table
 
     // task report
     @Override byte[] report() throws Exception {

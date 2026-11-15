@@ -30,8 +30,11 @@ ALL_NAMES = ["PDFBox", "iText", "OpenPDF", "PDFjet Java", "PDFjet C#", "PDFjet G
 RANKED = 4
 PORTS = ["pdfjet", "pdfjet-dotnet", "pdfjet-go", "pdfjet-swift"]
 PORT_NAMES = ["Java (OpenJDK 25)", "C# (.NET)", "Go", "Swift"]
+# The statement: PDFjet's with BigTable, its class for long tables of
+# one-line rows, and the row under it PDFjet's with Table, which the other
+# libraries have no second way to match, so their cells are dashes
 DOCS = [("invoice", "invoice, 1 page"), ("statement", "statement, 12 pages"),
-        ("report", "report, 18 pages"), ("multilingual", "multilingual, 1 page"),
+        ("statement-table", "statement, PDFjet's Table"), ("report", "report, 18 pages"), ("multilingual", "multilingual, 1 page"),
         ("letters", "the 1,000 letters, PNG logo, s"), ("svgletters", "the 1,000 letters, SVG logo, s")]
 # What a library needs to draw SVG, for the letters with an SVG logo
 SVG_NEEDS = {"pdfjet": "", "itext": "iText's svg module", "openpdf": "Apache Batik",
@@ -139,24 +142,30 @@ def times(libs, names, font, docs):
 
 def memory(libs, names):
     out = ["| Document | %s |" % " | ".join(names), "|---|%s" % ("---:|" * len(names))]
-    for task, label in [("invoice", "invoice"), ("statement", "statement"), ("report", "report"),
+    for task, label in [("invoice", "invoice"), ("statement", "statement"),
+                        ("statement-table", "statement, PDFjet's Table"), ("report", "report"),
                         ("multilingual", "multilingual"), ("svgletters", "one letter")]:
         values = []
         for lib in libs:
             s = stat(lib, "plex", task)
             values.append((s["alloc"], "%.1f" % s["alloc"]) if s and s["alloc"] else None)
+        if all(v is None for v in values):
+            continue
         out.append(row(label, values, RANKED))
     return "\n".join(out)
 
 
 def sizes(libs, names):
     out = ["| Document | %s |" % " | ".join(names), "|---|%s" % ("---:|" * len(names))]
-    for task, label in [("invoice", "invoice"), ("statement", "statement"), ("report", "report"),
+    for task, label in [("invoice", "invoice"), ("statement", "statement"),
+                        ("statement-table", "statement, PDFjet's Table"), ("report", "report"),
                         ("multilingual", "multilingual"), ("svgletters", "one letter")]:
         values = []
         for lib in libs:
             s = stat(lib, "plex", task)
             values.append((s["kb"], "{:,.0f}".format(s["kb"])) if s else None)
+        if all(v is None for v in values):
+            continue
         out.append(row(label, values, RANKED))
     return "\n".join(out)
 
@@ -211,7 +220,8 @@ def lines_of_code():
 TABLES = {
     "java-plex": lambda: times(ALL, ALL_NAMES, "plex", DOCS),
     "java-noto": lambda: times(ALL, ALL_NAMES, "noto",
-                               [("invoice", "invoice"), ("statement", "statement"), ("report", "report"),
+                               [("invoice", "invoice"), ("statement", "statement"),
+                                ("statement-table", "statement, PDFjet's Table"), ("report", "report"),
                                 ("multilingual", "multilingual"), ("svgletters", "the 1,000 letters, SVG logo, s")]),
     "first-pdf": lambda: first_pdf(ALL, ALL_NAMES),
     "memory": lambda: memory(ALL, ALL_NAMES),

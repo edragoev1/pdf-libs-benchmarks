@@ -216,6 +216,42 @@ static class Bench {
         PDF pdf = new PDF(buf);
         Font regular = NewFont(pdf, REGULAR);
         Font bold = NewFont(pdf, BOLD);
+        regular.SetSize(TABLE);
+        bold.SetSize(TABLE);
+        Page first = new Page(pdf, Letter.PORTRAIT);
+        Line(bold, HEADING, "Account statement", M, M + 16f).DrawOn(first);
+        Line(regular, BODY, "Account 0042-1234, 1 January to 30 December 2026", M, M + 36f).DrawOn(first);
+
+        BigTable table = new BigTable(pdf, bold, regular, Letter.PORTRAIT);
+        table.SetNumberOfColumns(STATEMENT_HEADER.Length);
+        table.SetTableData(STATEMENT_HEADER, StatementRows());
+        float[] percents = new float[STATEMENT_WIDTHS.Length];
+        for (int c = 0; c < percents.Length; c++) {
+            percents[c] = STATEMENT_WIDTHS[c] / TEXT_W * 100f;
+            if (STATEMENT_RIGHT[c]) {
+                table.SetTextAlignment(c, Alignment.RIGHT);
+            }
+        }
+        table.SetColumnWidthsInPercent(percents);
+        table.SetPadding(SIDE_PAD).SetVerticalPadding(STATEMENT_PAD);
+        table.SetShadingColor(Color.transparent).SetHeaderColor(0xE6E6E6);
+        table.SetVerticalLines(false).SetBorderColor(Color.black);
+        table.SetFooter("Page {page} of {pages}", regular).SetFooterFontSize(FOOTER).SetFooterOffset(H - FOOTER_BASELINE);
+        table.SetLocation(M, M);
+        table.SetFirstPage(first, M + 50f);
+        table.SetBottomMargin(M);
+        table.Complete();
+        pdf.Complete();
+        return buf.ToArray();
+    }
+    // end statement
+
+    // task statement-table
+    static byte[] StatementTable() {
+        MemoryStream buf = new MemoryStream();
+        PDF pdf = new PDF(buf);
+        Font regular = NewFont(pdf, REGULAR);
+        Font bold = NewFont(pdf, BOLD);
         Page first = new Page(pdf, Letter.PORTRAIT, Page.DETACHED);
         Line(bold, HEADING, "Account statement", M, M + 16f).DrawOn(first);
         Line(regular, BODY, "Account 0042-1234, 1 January to 30 December 2026", M, M + 36f).DrawOn(first);
@@ -237,7 +273,7 @@ static class Bench {
         pdf.Complete();
         return buf.ToArray();
     }
-    // end statement
+    // end statement-table
 
     // task report
     static byte[] Report() {
@@ -364,7 +400,7 @@ static class Bench {
         int warm = int.Parse(args[2]);
         int runs = int.Parse(args[3]);
         double minWarmSeconds = (args.Length > 4) ? double.Parse(args[4], CultureInfo.InvariantCulture) : 3.0;
-        List<string> only = new List<string>(((args.Length > 5) ? args[5] : "invoice,statement,report,letters,svgletters,multilingual").Split(','));
+        List<string> only = new List<string>(((args.Length > 5) ? args[5] : "invoice,statement,statement-table,report,letters,svgletters,multilingual").Split(','));
         ReadInputs(family);
         string outDir = "out-" + family;
         Directory.CreateDirectory(outDir);
@@ -377,6 +413,7 @@ static class Bench {
             byte[] pdf = name switch {
                 "invoice" => Invoice(),
                 "statement" => Statement(),
+                "statement-table" => StatementTable(),
                 "report" => Report(),
                 "multilingual" => Multilingual(),
                 "svgletters" => SvgLetter1(1),
@@ -391,6 +428,7 @@ static class Bench {
         var tasks = new (string, Func<byte[]>, int)[] {
             ("invoice", Invoice, 1),
             ("statement", Statement, 1),
+            ("statement-table", StatementTable, 1),
             ("report", Report, 1),
             ("letters", Letters, 1000),
             ("multilingual", Multilingual, 1),

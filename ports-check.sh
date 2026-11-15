@@ -73,6 +73,9 @@ for port in "${ports[@]}"; do
                 "Section 4" "Sentence 6 of paragraph 30 in section 4" "Figure 4" "Page @N@"
         check "$dir/$lib-statement.pdf" $font statement 11 14 \
                 "Transaction 600" "47,155.00" "Page @N@ of @N@"
+        # The statement with Table, beside the one with BigTable
+        check "$dir/$lib-statement-table.pdf" $font statement 11 14 \
+                "Transaction 600" "47,155.00" "Page @N@ of @N@"
         check "$dir/$lib-svgletters.pdf" $font letters 1 1 \
                 "Dear customer 1000,"
         # The letters with the PNG logo are made with Plex alone (SPEC.md)

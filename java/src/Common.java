@@ -13,7 +13,7 @@ import java.util.*;
 //   java <Lib>Fair first <font>
 //
 // font is plex or noto; tasks a comma-separated list of invoice, statement,
-// report, letters.
+// statement-table (PDFjet alone: its statement with Table), report, letters.
 abstract class Common {
     // The benchmark's folder, run from java/: the fonts and the logo of this benchmark, in its own fonts/ and images/ (5 November 2026: PDFjet 9.1.7 moved its fonts, and has no Noto Sans)
     static final String ROOT = "../";
@@ -164,6 +164,14 @@ abstract class Common {
 
     abstract byte[] invoice() throws Exception;
     abstract byte[] statement() throws Exception;
+
+    // The statement drawn with PDFjet's Table, for the task statement-table,
+    // or null when the library has no second way and the task is skipped:
+    // PDFjet draws the statement with BigTable, the class it has for long
+    // tables of one-line rows, and with Table too, its general table.
+    byte[] statementTable() throws Exception {
+        return null;
+    }
     abstract byte[] report() throws Exception;
     abstract byte[] letter(int n) throws Exception;
     abstract byte[] multilingual() throws Exception;
@@ -225,6 +233,7 @@ abstract class Common {
             switch (name) {
             case "invoice": pdf = invoice(); break;
             case "statement": pdf = statement(); break;
+            case "statement-table": pdf = statementTable(); break;
             case "report": pdf = report(); break;
             case "multilingual": pdf = multilingual(); break;
             case "svgletters": pdf = svgLetter(1); break;
@@ -251,6 +260,12 @@ abstract class Common {
             switch (name) {
             case "invoice": task = this::invoice; break;
             case "statement": task = this::statement; break;
+            case "statement-table":
+                if (statementTable() == null) {
+                    continue;
+                }
+                task = this::statementTable;
+                break;
             case "report": task = this::report; break;
             case "multilingual": task = this::multilingual; break;
             case "letters":

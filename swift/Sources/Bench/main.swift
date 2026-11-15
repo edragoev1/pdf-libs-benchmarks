@@ -229,6 +229,37 @@ func statement() throws -> Data {
     let (pdf, stream) = newPDF()
     let regular = try font(pdf, REGULAR)
     let bold = try font(pdf, BOLD)
+    regular.setSize(TABLE)
+    bold.setSize(TABLE)
+    let first = Page(pdf, Letter.PORTRAIT)
+    line(bold, HEADING, "Account statement", M, M + 16).drawOn(first)
+    line(regular, BODY, "Account 0042-1234, 1 January to 30 December 2026", M, M + 36).drawOn(first)
+
+    let table = BigTable(pdf, bold, regular, Letter.PORTRAIT)
+    table.setNumberOfColumns(STATEMENT_HEADER.count)
+    table.setTableData(STATEMENT_HEADER, statementRows())
+    let p = STATEMENT_WIDTHS.map { $0 / TEXT_W * 100 }
+    for c in 0..<STATEMENT_RIGHT.count where STATEMENT_RIGHT[c] {
+        table.setTextAlignment(c, Alignment.RIGHT)
+    }
+    table.setColumnWidthsInPercent(p[0], p[1], p[2], p[3], p[4])
+    table.setPadding(SIDE_PAD).setVerticalPadding(STATEMENT_PAD)
+    table.setShadingColor(Color.transparent).setHeaderColor(0xE6E6E6)
+    table.setVerticalLines(false).setBorderColor(Color.black)
+    table.setFooter("Page {page} of {pages}", regular).setFooterFontSize(FOOTER).setFooterOffset(H - FOOTER_BASELINE)
+    table.setLocation(M, M)
+    table.setFirstPage(first, M + 50)
+    table.setBottomMargin(M)
+    try table.complete()
+    return try finish(pdf, stream)
+}
+// end statement
+
+// task statement-table
+func statementTable() throws -> Data {
+    let (pdf, stream) = newPDF()
+    let regular = try font(pdf, REGULAR)
+    let bold = try font(pdf, BOLD)
     let first = Page(pdf, Letter.PORTRAIT, Page.DETACHED)
     line(bold, HEADING, "Account statement", M, M + 16).drawOn(first)
     line(regular, BODY, "Account 0042-1234, 1 January to 30 December 2026", M, M + 36).drawOn(first)
@@ -248,7 +279,7 @@ func statement() throws -> Data {
     pdf.addPages(pages)
     return try finish(pdf, stream)
 }
-// end statement
+// end statement-table
 
 // task report
 func report() throws -> Data {
@@ -370,7 +401,7 @@ let mode = args[2]
 let warm = Int(args[3])!
 let runs = Int(args[4])!
 let minWarmSeconds = args.count > 5 ? Double(args[5])! : 3.0
-let only = (args.count > 6 ? args[6] : "invoice,statement,report,letters,svgletters,multilingual").split(separator: ",").map(String.init)
+let only = (args.count > 6 ? args[6] : "invoice,statement,statement-table,report,letters,svgletters,multilingual").split(separator: ",").map(String.init)
 let outDir = "out-" + family
 try FileManager.default.createDirectory(atPath: outDir, withIntermediateDirectories: true)
 
@@ -379,7 +410,7 @@ if mode == "first" {
     // named, and one letter for the letters
     let name = args.count > 6 ? args[6] : "invoice"
     let makers: [String: () throws -> Data] = [
-        "invoice": invoice, "statement": statement, "report": report, "multilingual": multilingual,
+        "invoice": invoice, "statement": statement, "statement-table": statementTable, "report": report, "multilingual": multilingual,
         "svgletters": { try svgLetter(1) },
     ]
     let t0 = DispatchTime.now()
@@ -391,6 +422,7 @@ if mode == "first" {
 let tasks: [(String, () throws -> Data, Int)] = [
     ("invoice", invoice, 1),
     ("statement", statement, 1),
+    ("statement-table", statementTable, 1),
     ("report", report, 1),
     ("letters", letters, 1000),
     ("multilingual", multilingual, 1),

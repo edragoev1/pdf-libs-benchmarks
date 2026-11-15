@@ -72,7 +72,9 @@ fi
 } > $ENVFILE
 [ -n "$BUILD_ONLY" ] && { echo "Built."; exit 0; }
 
-tasks() { [ "$1" = noto ] && echo invoice,statement,report,svgletters,multilingual || echo invoice,statement,report,letters,svgletters,multilingual; }
+# statement-table is PDFjet's statement with Table, beside the one with
+# BigTable; the other libraries have one statement, and skip it.
+tasks() { [ "$1" = noto ] && echo invoice,statement,statement-table,report,svgletters,multilingual || echo invoice,statement,statement-table,report,letters,svgletters,multilingual; }
 
 if [ -n "$QUICK" ]; then
     for cls in $LIBS; do

@@ -94,6 +94,10 @@ pages as the library breaks them: aim for 12 pages; whatever the count N,
 every page has the footer "Page n of N", 8 pt, centered, at the bottom
 margin. Rows are one line each (no wrapping) at 9 pt.
 
+- PDFjet (every port, Java too): BigTable, its class for long tables of
+  one-line rows, with the footer it writes itself; and the same statement
+  with Table, the task statement-table, which the other libraries skip.
+
 Check strings: "Transaction 600", the final balance, "Page N of N".
 
 ## report (about 20 pages)

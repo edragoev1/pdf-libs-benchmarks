@@ -19,6 +19,7 @@ import (
 	pdfjet "github.com/edragoev1/pdfjet/v9/src"
 	"github.com/edragoev1/pdfjet/v9/src/alignment"
 	"github.com/edragoev1/pdfjet/v9/src/border"
+	"github.com/edragoev1/pdfjet/v9/src/color"
 	"github.com/edragoev1/pdfjet/v9/src/letter"
 )
 
@@ -282,6 +283,47 @@ func statement() []byte {
 	pdf := pdfjet.NewPDF(bufio.NewWriter(&buf))
 	regular := newFont(pdf, regularBytes)
 	bold := newFont(pdf, boldBytes)
+	regular.SetSize(tableSize)
+	bold.SetSize(tableSize)
+	first := pdfjet.NewPage(pdf, letter.Portrait())
+	line(bold, heading, "Account statement", M, M+16).DrawOn(first)
+	line(regular, body, "Account 0042-1234, 1 January to 30 December 2026", M, M+36).DrawOn(first)
+
+	table := pdfjet.NewBigTable(pdf, bold, regular, letter.Portrait())
+	table.SetNumberOfColumns(len(statementHeader))
+	table.SetTableRows(statementHeader, slices.Values(statementRows()))
+	percents := make([]float32, len(statementWidths))
+	for c := range percents {
+		percents[c] = statementWidths[c] / textW * 100
+		if statementRight[c] {
+			table.SetTextAlignment(c, alignment.Right)
+		}
+	}
+	table.SetColumnWidthsInPercent(percents...)
+	table.SetPadding(sidePad).SetVerticalPadding(statementPad)
+	table.SetShadingColor(color.Transparent).SetHeaderColor(0xE6E6E6)
+	table.SetVerticalLines(false).SetBorderColor(color.Black)
+	table.SetFooter("Page {page} of {pages}", regular).SetFooterFontSize(footerSize).SetFooterOffset(H - footerBaseline)
+	table.SetLocation(M, M)
+	table.SetFirstPage(first, M+50)
+	table.SetBottomMargin(M)
+	if err := table.Complete(); err != nil {
+		panic(err)
+	}
+	if err := pdf.Complete(); err != nil {
+		panic(err)
+	}
+	return buf.Bytes()
+}
+
+// end statement
+
+// task statement-table
+func statementTable() []byte {
+	var buf bytes.Buffer
+	pdf := pdfjet.NewPDF(bufio.NewWriter(&buf))
+	regular := newFont(pdf, regularBytes)
+	bold := newFont(pdf, boldBytes)
 	first := pdfjet.NewPageDetached(pdf, letter.Portrait())
 	line(bold, heading, "Account statement", M, M+16).DrawOn(first)
 	line(regular, body, "Account 0042-1234, 1 January to 30 December 2026", M, M+36).DrawOn(first)
@@ -305,7 +347,7 @@ func statement() []byte {
 	return buf.Bytes()
 }
 
-// end statement
+// end statement-table
 
 // task report
 func report() []byte {
@@ -463,7 +505,7 @@ func main() {
 	if len(os.Args) > 5 {
 		minWarmSeconds, _ = strconv.ParseFloat(os.Args[5], 64)
 	}
-	only := "invoice,statement,report,letters,svgletters,multilingual"
+	only := "invoice,statement,statement-table,report,letters,svgletters,multilingual"
 	if len(os.Args) > 6 {
 		only = os.Args[6]
 	}
@@ -481,7 +523,7 @@ func main() {
 			name = os.Args[6]
 		}
 		makers := map[string]func() []byte{
-			"invoice": invoice, "statement": statement, "report": report, "multilingual": multilingual,
+			"invoice": invoice, "statement": statement, "statement-table": statementTable, "report": report, "multilingual": multilingual,
 			"svgletters": func() []byte { return svgLetter1(1) },
 		}
 		t0 := time.Now()
@@ -497,6 +539,7 @@ func main() {
 	}{
 		{"invoice", invoice, 1},
 		{"statement", statement, 1},
+		{"statement-table", statementTable, 1},
 		{"report", report, 1},
 		{"letters", letters, 1000},
 		{"multilingual", multilingual, 1},

@@ -22,7 +22,7 @@ for f in out-*/*.pdf; do
     text=$(mutool draw -q -F txt "$f" 2>/dev/null | tr -s ' \n\t' '   ')
     case $task in
         invoice) want=("Invoice INV-2026-0042" "$TOTAL" "Service item 15"); okpages=$([ "$pages" = 1 ] && echo y);;
-        statement) want=("Transaction 600" "$BALANCE" "Page $pages of $pages" "Page 1 of $pages")
+        statement|statement-table) want=("Transaction 600" "$BALANCE" "Page $pages of $pages" "Page 1 of $pages")
                    okpages=$([ "$pages" -ge 10 ] && [ "$pages" -le 14 ] && echo y);;
         report) want=("Section 4" "Sentence 6 of paragraph 30 in section 4" "Figure 4" "Page $pages")
                 okpages=$([ "$pages" -ge 17 ] && [ "$pages" -le 24 ] && echo y);;
@@ -61,7 +61,8 @@ printf "%-24s %7s %7s %7s %7s\n" "pages" pdfbox itext openpdf pdfjet
 for key in $(printf "%s\n" "${!PAGES[@]}" | sed 's|/[^/]*$||' | sort -u); do
     counts=()
     for lib in pdfbox itext openpdf pdfjet; do counts+=("${PAGES[$key/$lib]:--}"); done
-    same=$(printf "%s\n" "${counts[@]}" | sort -u | wc -l)
+    # The libraries that made it: statement-table is PDFjet's alone
+    same=$(printf "%s\n" "${counts[@]}" | grep -v '^-$' | sort -u | wc -l)
     printf "%-24s %7s %7s %7s %7s %s\n" "$key" "${counts[@]}" "$([ "$same" = 1 ] || echo differs)"
 done
 echo

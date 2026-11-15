@@ -30,7 +30,7 @@ the pdfbox-graphics2d bridge 3.0.5.
 Each library is used the way its own documentation shows: iText's and
 OpenPDF's `Document` for flowing text, PDFBox's content streams with lines
 wrapped by hand, as it has no layout of its own, and PDFjet's TextFrame and
-Table, and for the report TextFlow. Every program reads the
+Table, BigTable for the statement, and for the report TextFlow. Every program reads the
 font files from disk once, into memory, and each document makes its fonts
 from those bytes, as a server would: iText and OpenPDF with their own
 default caches, PDFBox with its TrueType font parsed once and reused, as its
@@ -289,6 +289,10 @@ make-tables.py makes every table of this report from the results.
   their documentation shows for long tables. iText's ordinary Table was
   timed too, and was slower (about 106 ms against 72, in the run of
   26 October).
+- PDFjet draws the statement with BigTable, its class for long tables of
+  one-line rows, as its documentation shows for them. Its ordinary Table
+  is timed too, in every port, and shown in the row "statement, PDFjet's
+  Table" under the statement.
 - PDFBox's report time is almost all in reading the four photos:
   `createFromByteArray`, as its documentation shows, decodes each JPEG
   (about 38 ms here) to read its size and colors, then embeds its bytes
