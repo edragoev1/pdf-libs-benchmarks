@@ -59,11 +59,11 @@ public class Report {
         // reading width
         float size = 10.5f;
         Markdown markdown = new Markdown(
-                font(pdf, "IBMPlexSans/IBMPlexSans-Regular.ttf", size),
-                font(pdf, "IBMPlexSans/IBMPlexSans-SemiBold.ttf", size),
-                font(pdf, "IBMPlexSans/IBMPlexSans-Italic.ttf", size),
-                font(pdf, "IBMPlexSans/IBMPlexSans-SemiBoldItalic.ttf", size),
-                font(pdf, "CascadiaMono/CascadiaMono-Regular.ttf", size * 0.86f))
+                font(pdf, "IBMPlexSans/IBMPlexSans-Regular.otf", size),
+                font(pdf, "IBMPlexSans/IBMPlexSans-SemiBold.otf", size),
+                font(pdf, "IBMPlexSans/IBMPlexSans-Italic.otf", size),
+                font(pdf, "IBMPlexSans/IBMPlexSans-SemiBoldItalic.otf", size),
+                font(pdf, "CascadiaMono/CascadiaMono-Regular.otf", size * 0.86f))
                 .setHeadingColor(NAVY)
                 .setLinkColor(0x0969DA)
                 .setFullWidthTables(true)
@@ -77,7 +77,7 @@ public class Report {
             markdown.drawOn(pdf, text.substring(appendix + 1), pages, Letter.LANDSCAPE);
         }
 
-        Font small = font(pdf, "IBMPlexSans/IBMPlexSans-Regular.ttf", 8f);
+        Font small = font(pdf, "IBMPlexSans/IBMPlexSans-Regular.otf", 8f);
         for (int i = 0; i < pages.size(); i++) {
             TextLine number = new TextLine(small, (i + 1) + " / " + pages.size()).setTextColor(MUTED);
             pages.get(i).addFooter(number, 30f);
@@ -97,12 +97,12 @@ public class Report {
 
     static Page chartsPage(PDF pdf, List<String> charts, String author, String request) throws Exception {
         Page page = new Page(pdf, Letter.LANDSCAPE, Page.DETACHED);
-        Font title = font(pdf, "IBMPlexSans/IBMPlexSans-SemiBold.ttf", 22f);
-        Font semi = font(pdf, "IBMPlexSans/IBMPlexSans-SemiBold.ttf", 10f);
-        Font note = font(pdf, "IBMPlexSans/IBMPlexSans-Regular.ttf", 10f);
+        Font title = font(pdf, "IBMPlexSans/IBMPlexSans-SemiBold.otf", 22f);
+        Font semi = font(pdf, "IBMPlexSans/IBMPlexSans-SemiBold.otf", 10f);
+        Font note = font(pdf, "IBMPlexSans/IBMPlexSans-Regular.otf", 10f);
         // Who wrote it, in italic a point larger, so that it stands out (the
         // owner, 5 November 2026)
-        Font authorFont = font(pdf, "IBMPlexSans/IBMPlexSans-Italic.ttf", 11f);
+        Font authorFont = font(pdf, "IBMPlexSans/IBMPlexSans-Italic.otf", 11f);
 
         page.setBrushColor(NAVY);
         page.fillRect(M, M - 6f, 36f, 4f);
@@ -147,14 +147,14 @@ public class Report {
     // read them.
     static Page moreChartsPage(PDF pdf, List<String> charts) throws Exception {
         Page page = new Page(pdf, Letter.LANDSCAPE, Page.DETACHED);
-        Font semi = font(pdf, "IBMPlexSans/IBMPlexSans-SemiBold.ttf", 15f);
-        Font note = font(pdf, "IBMPlexSans/IBMPlexSans-Regular.ttf", 10f);
+        Font semi = font(pdf, "IBMPlexSans/IBMPlexSans-SemiBold.otf", 15f);
+        Font note = font(pdf, "IBMPlexSans/IBMPlexSans-Regular.otf", 10f);
         String[] head = charts.get(0).split("\\|", 2);
         page.setBrushColor(NAVY);
         page.fillRect(M, M - 6f, 36f, 4f);
         new TextLine(semi, head[1]).setTextColor(INK)
                 .setStructureType(StructElem.H2).setLocation(M, M + 16f).drawOn(page);
-        lowerIsBetter(page, font(pdf, "IBMPlexSans/IBMPlexSans-SemiBold.ttf", 10f), M + 36f);
+        lowerIsBetter(page, font(pdf, "IBMPlexSans/IBMPlexSans-SemiBold.otf", 10f), M + 36f);
         drawCharts(pdf, page, charts.subList(1, charts.size()), M + 50f);
         return page;
     }
@@ -163,10 +163,10 @@ public class Report {
     // highlighted; a line "#caption|header|note" starts a row under its header
     // and the font its tests use. Returns the bottom of the last row.
     static float drawCharts(PDF pdf, Page page, List<String> charts, float top) throws Exception {
-        Font semi = font(pdf, "IBMPlexSans/IBMPlexSans-SemiBold.ttf", 10f);
-        Font regular = font(pdf, "IBMPlexSans/IBMPlexSans-Regular.ttf", 8.5f);
-        Font header = font(pdf, "IBMPlexSans/IBMPlexSans-SemiBold.ttf", 11f);
-        Font note = font(pdf, "IBMPlexSans/IBMPlexSans-Regular.ttf", 10f);
+        Font semi = font(pdf, "IBMPlexSans/IBMPlexSans-SemiBold.otf", 10f);
+        Font regular = font(pdf, "IBMPlexSans/IBMPlexSans-Regular.otf", 8.5f);
+        Font header = font(pdf, "IBMPlexSans/IBMPlexSans-SemiBold.otf", 11f);
+        Font note = font(pdf, "IBMPlexSans/IBMPlexSans-Regular.otf", 10f);
         float gap = 12f;
         int perRow = 5;
         float cw = (TW - (perRow - 1) * gap) / perRow;

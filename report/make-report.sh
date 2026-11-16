@@ -52,7 +52,7 @@ qpdf --check pdf-libs-benchmarks.pdf > /dev/null && echo "pdf-libs-benchmarks.pd
 mkdir -p fonts
 for f in IBMPlexSans/IBMPlexSans-Regular IBMPlexSans/IBMPlexSans-SemiBold IBMPlexSans/IBMPlexSans-Italic \
          IBMPlexSans/IBMPlexSans-SemiBoldItalic CascadiaMono/CascadiaMono-Regular; do
-    pyftsubset "$PDFJET/resources/fonts/$f.ttf" --output-file="fonts/${f#*/}.woff2" --flavor=woff2 \
+    pyftsubset "$PDFJET/resources/fonts/$f.otf" --output-file="fonts/${f#*/}.woff2" --flavor=woff2 \
         --unicodes="U+0020-007E,U+00A0-017F,U+2010-2027,U+2030-203A,U+20AC,U+2190-2193,U+2212,U+2713" \
         --layout-features='kern,liga,calt' --no-hinting --drop-tables+=meta
 done
