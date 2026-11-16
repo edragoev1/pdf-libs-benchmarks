@@ -82,6 +82,7 @@ question; iText also has a company behind it with paid support.
 | Markdown to PDF | no | no | no | **✓** |
 | HTML to PDF | no | pdfHTML add-on | openpdf-html module | no |
 | Images | JPEG, PNG, GIF, BMP, TIFF | those, WMF, JPEG 2000, JBIG2; WebP with the webp-image-support module | those, WMF, JPEG 2000 | JPEG, PNG, BMP |
+| OpenType fonts of CFF outlines (.otf), embedded as subsets | no: its TrueType parser refuses them, and its OpenType parser loads them but cannot subset them; embedded whole, the statement in IBM Plex Sans's .otf was 205 KB and MuPDF warned of the font's type | **✓** | **✓** | **✓** |
 | Kerning | no | pdfCalligraph, commercial | the old kern table only, which neither font here has; GPOS through Java AWT or Apache FOP | **✓** |
 | Ligatures (GSUB) | ✓ by default, turned off here | pdfCalligraph, commercial | through Java AWT or Apache FOP | no |
 | Arabic | no | pdfCalligraph, commercial | **✓** | **✓** |
