@@ -7,16 +7,21 @@ documents the same way; the text is generated, so no data file is needed.
 
 - Page: US Letter portrait, 612 × 792 pt. Margins 50 pt on every side.
 - Fonts: IBM Plex Sans Regular and SemiBold, from this benchmark's
-  `fonts/IBMPlexSans/IBMPlexSans-Regular.ttf` and `-SemiBold.ttf` (version
-  3.005, as PDFjet 9.1.7 carries them), embedded as subsets. Noto run, of the
-  invoice, the statement, the report, the notice and the letters with the SVG
-  logo: NotoSans-Regular.ttf and NotoSans-Bold.ttf (version 2.015) from
-  `fonts/NotoSans/`. Every library reads the same files. Beside them,
-  NotoSans-Regular.otf and NotoSans-Bold.otf, the same version 2.015 with
-  CFF outlines, from the Noto project's release NotoSans-v2.015
-  (github.com/notofonts/latin-greek-cyrillic, `NotoSans/full/otf/`), which
-  covers the same 3,094 characters as the .ttf, for a library that does
-  better with an .otf; under the same license, OFL.txt. The font bytes
+  `fonts/IBMPlexSans/` (version 3.005, as PDFjet 9.1.7 carries them),
+  embedded as subsets. Noto run, of the invoice, the statement, the report,
+  the notice and the letters with the SVG logo: Noto Sans Regular and Bold
+  (version 2.015) from `fonts/NotoSans/`. Each library reads the format it
+  does best with, as a user who knows it would choose: PDFBox, iText and
+  OpenPDF the .ttf files (PDFBox cannot subset an .otf of CFF outlines, and
+  iText's and OpenPDF's PDFs are larger with one), PDFjet the .otf files
+  (its subset of a CFF font is the smaller). The .otf of IBM Plex Sans is
+  IBM's, of the same version, as PDFjet carries it, and covers every
+  character the .ttf does but NUL and the carriage return; that of Noto
+  Sans is the CFF build of the same version 2.015, from the Noto project's
+  release NotoSans-v2.015 (github.com/notofonts/latin-greek-cyrillic,
+  `NotoSans/full/otf/`), which covers the same 3,094 characters as the
+  .ttf. Each family's files are under its license, license.txt and
+  OFL.txt. The font bytes
   are read from disk once per process into memory; each document creates its
   font objects from those bytes (as a server does, per document).
 - Body text 10 pt, line height about 13 pt; headings SemiBold 16 pt; table

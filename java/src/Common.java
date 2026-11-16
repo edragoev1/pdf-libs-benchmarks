@@ -193,13 +193,17 @@ abstract class Common {
         return last;
     }
 
+    // The format of the font files a library reads, the one it does best
+    // with: .ttf, but for PDFjet, whose program sets .otf (SPEC.md)
+    static String fontFormat = ".ttf";
+
     static void readInputs(String font) throws Exception {
         if (font.equals("plex")) {
-            REGULAR = Files.readAllBytes(Paths.get(ROOT + "fonts/IBMPlexSans/IBMPlexSans-Regular.ttf"));
-            BOLD = Files.readAllBytes(Paths.get(ROOT + "fonts/IBMPlexSans/IBMPlexSans-SemiBold.ttf"));
+            REGULAR = Files.readAllBytes(Paths.get(ROOT + "fonts/IBMPlexSans/IBMPlexSans-Regular" + fontFormat));
+            BOLD = Files.readAllBytes(Paths.get(ROOT + "fonts/IBMPlexSans/IBMPlexSans-SemiBold" + fontFormat));
         } else if (font.equals("noto")) {
-            REGULAR = Files.readAllBytes(Paths.get(ROOT + "fonts/NotoSans/NotoSans-Regular.ttf"));
-            BOLD = Files.readAllBytes(Paths.get(ROOT + "fonts/NotoSans/NotoSans-Bold.ttf"));
+            REGULAR = Files.readAllBytes(Paths.get(ROOT + "fonts/NotoSans/NotoSans-Regular" + fontFormat));
+            BOLD = Files.readAllBytes(Paths.get(ROOT + "fonts/NotoSans/NotoSans-Bold" + fontFormat));
         } else {
             throw new IllegalArgumentException(font);
         }

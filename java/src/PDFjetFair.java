@@ -14,6 +14,9 @@ import com.pdfjet.*;
 // PDFjet embeds a font as a subset of the glyphs drawn by default.
 public class PDFjetFair extends Common {
     public static void main(String[] args) throws Exception {
+        // PDFjet does best with .otf: its subset of a CFF font is of the
+        // glyphs drawn alone, and smaller (SPEC.md)
+        Common.fontFormat = ".otf";
         new PDFjetFair().run("pdfjet", args);
     }
 

@@ -35,8 +35,8 @@ func read(_ path: String) -> Data {
 }
 let args = CommandLine.arguments
 let family = args[1]
-let REGULAR = read(family == "plex" ? "fonts/IBMPlexSans/IBMPlexSans-Regular.ttf" : "fonts/NotoSans/NotoSans-Regular.ttf")
-let BOLD = read(family == "plex" ? "fonts/IBMPlexSans/IBMPlexSans-SemiBold.ttf" : "fonts/NotoSans/NotoSans-Bold.ttf")
+let REGULAR = read(family == "plex" ? "fonts/IBMPlexSans/IBMPlexSans-Regular.otf" : "fonts/NotoSans/NotoSans-Regular.otf")
+let BOLD = read(family == "plex" ? "fonts/IBMPlexSans/IBMPlexSans-SemiBold.otf" : "fonts/NotoSans/NotoSans-Bold.otf")
 let LOGO = read("images/pdfjet-logo.png")
 let SVG_LOGO = read("images/pdfjet-logo.svg")
 let PHOTOS = ["photo-1.jpg", "photo-2.jpg", "photo-3.jpg", "photo-4.jpg"].map { FileManager.default.contents(atPath: "../images/" + $0)! }

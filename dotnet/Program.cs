@@ -45,11 +45,11 @@ static class Bench {
         // The benchmark's folder, run from dotnet/: the fonts and the logo of this benchmark, in its own fonts/ and images/ (5 November 2026: PDFjet 9.1.7 moved its fonts, and has no Noto Sans)
         string root = "../";
         if (family == "plex") {
-            REGULAR = File.ReadAllBytes(root + "fonts/IBMPlexSans/IBMPlexSans-Regular.ttf");
-            BOLD = File.ReadAllBytes(root + "fonts/IBMPlexSans/IBMPlexSans-SemiBold.ttf");
+            REGULAR = File.ReadAllBytes(root + "fonts/IBMPlexSans/IBMPlexSans-Regular.otf");
+            BOLD = File.ReadAllBytes(root + "fonts/IBMPlexSans/IBMPlexSans-SemiBold.otf");
         } else if (family == "noto") {
-            REGULAR = File.ReadAllBytes(root + "fonts/NotoSans/NotoSans-Regular.ttf");
-            BOLD = File.ReadAllBytes(root + "fonts/NotoSans/NotoSans-Bold.ttf");
+            REGULAR = File.ReadAllBytes(root + "fonts/NotoSans/NotoSans-Regular.otf");
+            BOLD = File.ReadAllBytes(root + "fonts/NotoSans/NotoSans-Bold.otf");
         } else {
             throw new ArgumentException(family);
         }

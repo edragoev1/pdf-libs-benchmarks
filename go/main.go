@@ -48,11 +48,11 @@ func load(family string) {
 		return b
 	}
 	if family == "plex" {
-		regularBytes = read("fonts/IBMPlexSans/IBMPlexSans-Regular.ttf")
-		boldBytes = read("fonts/IBMPlexSans/IBMPlexSans-SemiBold.ttf")
+		regularBytes = read("fonts/IBMPlexSans/IBMPlexSans-Regular.otf")
+		boldBytes = read("fonts/IBMPlexSans/IBMPlexSans-SemiBold.otf")
 	} else {
-		regularBytes = read("fonts/NotoSans/NotoSans-Regular.ttf")
-		boldBytes = read("fonts/NotoSans/NotoSans-Bold.ttf")
+		regularBytes = read("fonts/NotoSans/NotoSans-Regular.otf")
+		boldBytes = read("fonts/NotoSans/NotoSans-Bold.otf")
 	}
 	logoBytes = read("images/pdfjet-logo.png")
 	svgLogoBytes = read("images/pdfjet-logo.svg")
