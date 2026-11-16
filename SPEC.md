@@ -11,7 +11,12 @@ documents the same way; the text is generated, so no data file is needed.
   3.005, as PDFjet 9.1.7 carries them), embedded as subsets. Noto run, of the
   invoice, the statement, the report, the notice and the letters with the SVG
   logo: NotoSans-Regular.ttf and NotoSans-Bold.ttf (version 2.015) from
-  `fonts/NotoSans/`. Every library reads the same files. The font bytes
+  `fonts/NotoSans/`. Every library reads the same files. Beside them,
+  NotoSans-Regular.otf and NotoSans-Bold.otf, the same version 2.015 with
+  CFF outlines, from the Noto project's release NotoSans-v2.015
+  (github.com/notofonts/latin-greek-cyrillic, `NotoSans/full/otf/`), which
+  covers the same 3,094 characters as the .ttf, for a library that does
+  better with an .otf; under the same license, OFL.txt. The font bytes
   are read from disk once per process into memory; each document creates its
   font objects from those bytes (as a server does, per document).
 - Body text 10 pt, line height about 13 pt; headings SemiBold 16 pt; table
