@@ -1,0 +1,6 @@
+1 plex pdfjet-swift max-rss-kb 42932 wall-s 36.18
+2 plex pdfjet-swift max-rss-kb 42836 wall-s 35.66
+3 plex pdfjet-swift max-rss-kb 42912 wall-s 35.74
+1 noto pdfjet-swift max-rss-kb 44148 wall-s 31.32
+2 noto pdfjet-swift max-rss-kb 44576 wall-s 30.84
+3 noto pdfjet-swift max-rss-kb 44208 wall-s 30.87

@@ -1,0 +1,5 @@
+10.0.400
+PDFjet v9.1.7-158-g812682b8a, 812682b8a A .ttf subset has the glyphs drawn alone, numbered again, with a CIDToGIDMap
+cpus 12, AMD Ryzen 5 5600G with Radeon Graphics
+2026-11-15T20:52:36-05:00
+2026-11-15T20:55:03-05:00

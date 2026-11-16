@@ -1,0 +1,1 @@
+812682b8a A .ttf subset has the glyphs drawn alone, numbered again, with a CIDToGIDMap
