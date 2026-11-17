@@ -52,6 +52,13 @@ hand: a gray box behind the header, each cell's text measured to align the
 numbers right, a rule under each row, the header again on each new page,
 and the page numbers in a second pass once the pages are counted.*
 
+*\* PDFjet does not shape these scripts itself. Your program shapes the text
+with a text engine (Java's and Apple's are built in; HarfBuzz or go-text in
+.NET and Go), and PDFjet draws the glyphs it found as outlines. They look the
+same on every screen and in print, and screen readers read them in a tagged
+PDF, but the text cannot be selected, copied or searched. Lines break at
+spaces only: Khmer, Thai, Lao and Burmese need a line breaker such as ICU's.*
+
 The other jars each of the others needs at run time, from its POM: PDFBox pdfbox-io,
 fontbox and commons-logging; iText io, commons, jackson-databind, slf4j-api
 and bouncy-castle-connector, and its layout jar for tables and flowing text;
@@ -86,7 +93,7 @@ question; iText also has a company behind it with paid support.
 | Kerning | no | pdfCalligraph, commercial | the old kern table only, which neither font here has; GPOS through Java AWT or Apache FOP | **✓** |
 | Ligatures (GSUB) | ✓ by default, turned off here | pdfCalligraph, commercial | through Java AWT or Apache FOP | no |
 | Arabic | no | pdfCalligraph, commercial | **✓** | **✓** |
-| Devanagari and other Indic scripts | Devanagari, Bengali, Gujarati, without mark positioning | pdfCalligraph, commercial | through Java AWT or Apache FOP | no |
+| Hindi, Khmer and other complex scripts | Devanagari, Bengali, Gujarati, without mark positioning; not Khmer | pdfCalligraph, commercial | through Java AWT or Apache FOP | as outlines, shaped by Java's text engine (9.1.9) \* |
 | Hyphenation | no | hyph module | ✓ patterns not included | soft hyphens; five languages in Pro, commercial |
 | Extract text | **✓** | **✓** | **✓** | no |
 | Render a page to an image | **✓** | pdfRender, commercial | openpdf-renderer module | no |
