@@ -47,12 +47,17 @@ func load(family string) {
 		}
 		return b
 	}
+	// .otf, which PDFjet does best with; PDFJET_FONTS=ttf for the .ttf files, to compare
+	ext := ".otf"
+	if os.Getenv("PDFJET_FONTS") == "ttf" {
+		ext = ".ttf"
+	}
 	if family == "plex" {
-		regularBytes = read("fonts/IBMPlexSans/IBMPlexSans-Regular.otf")
-		boldBytes = read("fonts/IBMPlexSans/IBMPlexSans-SemiBold.otf")
+		regularBytes = read("fonts/IBMPlexSans/IBMPlexSans-Regular" + ext)
+		boldBytes = read("fonts/IBMPlexSans/IBMPlexSans-SemiBold" + ext)
 	} else {
-		regularBytes = read("fonts/NotoSans/NotoSans-Regular.otf")
-		boldBytes = read("fonts/NotoSans/NotoSans-Bold.otf")
+		regularBytes = read("fonts/NotoSans/NotoSans-Regular" + ext)
+		boldBytes = read("fonts/NotoSans/NotoSans-Bold" + ext)
 	}
 	logoBytes = read("images/pdfjet-logo.png")
 	svgLogoBytes = read("images/pdfjet-logo.svg")
