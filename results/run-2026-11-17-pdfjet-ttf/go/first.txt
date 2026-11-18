@@ -1,0 +1,50 @@
+5 pdfjet-go multilingual first-process-wall-s 0.00 max-rss-kb 8804
+5 pdfjet-go plex first multilingual median-ms 2.46 bytes 26595
+2 pdfjet-go report first-process-wall-s 0.01 max-rss-kb 13604
+2 pdfjet-go plex first report median-ms 8.06 bytes 1819593
+2 pdfjet-go invoice first-process-wall-s 0.00 max-rss-kb 9380
+2 pdfjet-go plex first invoice median-ms 3.44 bytes 22286
+3 pdfjet-go invoice first-process-wall-s 0.00 max-rss-kb 10596
+3 pdfjet-go plex first invoice median-ms 4.09 bytes 22286
+4 pdfjet-go svgletters first-process-wall-s 0.00 max-rss-kb 8996
+4 pdfjet-go plex first svgletters median-ms 2.27 bytes 14627
+4 pdfjet-go invoice first-process-wall-s 0.00 max-rss-kb 9252
+4 pdfjet-go plex first invoice median-ms 3.38 bytes 22286
+5 pdfjet-go report first-process-wall-s 0.01 max-rss-kb 13604
+5 pdfjet-go plex first report median-ms 8.18 bytes 1819593
+3 pdfjet-go statement first-process-wall-s 0.00 max-rss-kb 9380
+3 pdfjet-go plex first statement median-ms 4.68 bytes 44185
+2 pdfjet-go multilingual first-process-wall-s 0.00 max-rss-kb 8740
+2 pdfjet-go plex first multilingual median-ms 2.65 bytes 26595
+2 pdfjet-go svgletters first-process-wall-s 0.00 max-rss-kb 8616
+2 pdfjet-go plex first svgletters median-ms 2.25 bytes 14627
+4 pdfjet-go multilingual first-process-wall-s 0.00 max-rss-kb 8232
+4 pdfjet-go plex first multilingual median-ms 2.79 bytes 26595
+1 pdfjet-go multilingual first-process-wall-s 0.00 max-rss-kb 8612
+1 pdfjet-go plex first multilingual median-ms 2.50 bytes 26595
+2 pdfjet-go statement first-process-wall-s 0.00 max-rss-kb 9380
+2 pdfjet-go plex first statement median-ms 4.66 bytes 44185
+1 pdfjet-go report first-process-wall-s 0.01 max-rss-kb 13860
+1 pdfjet-go plex first report median-ms 8.73 bytes 1819593
+3 pdfjet-go multilingual first-process-wall-s 0.00 max-rss-kb 8484
+3 pdfjet-go plex first multilingual median-ms 2.75 bytes 26595
+4 pdfjet-go statement first-process-wall-s 0.00 max-rss-kb 9508
+4 pdfjet-go plex first statement median-ms 5.31 bytes 44185
+1 pdfjet-go svgletters first-process-wall-s 0.00 max-rss-kb 8744
+1 pdfjet-go plex first svgletters median-ms 2.39 bytes 14627
+4 pdfjet-go report first-process-wall-s 0.01 max-rss-kb 13608
+4 pdfjet-go plex first report median-ms 8.33 bytes 1819593
+3 pdfjet-go svgletters first-process-wall-s 0.00 max-rss-kb 8612
+3 pdfjet-go plex first svgletters median-ms 2.24 bytes 14627
+5 pdfjet-go svgletters first-process-wall-s 0.00 max-rss-kb 8740
+5 pdfjet-go plex first svgletters median-ms 2.22 bytes 14627
+5 pdfjet-go statement first-process-wall-s 0.00 max-rss-kb 9508
+5 pdfjet-go plex first statement median-ms 4.77 bytes 44185
+3 pdfjet-go report first-process-wall-s 0.01 max-rss-kb 14568
+3 pdfjet-go plex first report median-ms 9.54 bytes 1819593
+1 pdfjet-go invoice first-process-wall-s 0.00 max-rss-kb 9380
+1 pdfjet-go plex first invoice median-ms 3.27 bytes 22286
+5 pdfjet-go invoice first-process-wall-s 0.00 max-rss-kb 9128
+5 pdfjet-go plex first invoice median-ms 3.23 bytes 22286
+1 pdfjet-go statement first-process-wall-s 0.00 max-rss-kb 9384
+1 pdfjet-go plex first statement median-ms 4.58 bytes 44185

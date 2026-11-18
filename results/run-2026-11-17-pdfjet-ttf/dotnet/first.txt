@@ -1,0 +1,50 @@
+5 pdfjet-dotnet svgletters first-process-wall-s 0.08 max-rss-kb 42820
+5 pdfjet-dotnet plex first svgletters median-ms 56.31 bytes 14513
+1 pdfjet-dotnet invoice first-process-wall-s 0.08 max-rss-kb 43560
+1 pdfjet-dotnet plex first invoice median-ms 54.69 bytes 21847
+3 pdfjet-dotnet statement first-process-wall-s 0.08 max-rss-kb 43912
+3 pdfjet-dotnet plex first statement median-ms 50.57 bytes 43240
+5 pdfjet-dotnet report first-process-wall-s 0.09 max-rss-kb 52448
+5 pdfjet-dotnet plex first report median-ms 67.70 bytes 1819010
+3 pdfjet-dotnet multilingual first-process-wall-s 0.07 max-rss-kb 42604
+3 pdfjet-dotnet plex first multilingual median-ms 41.67 bytes 26392
+2 pdfjet-dotnet statement first-process-wall-s 0.08 max-rss-kb 43952
+2 pdfjet-dotnet plex first statement median-ms 50.47 bytes 43240
+4 pdfjet-dotnet invoice first-process-wall-s 0.08 max-rss-kb 43540
+4 pdfjet-dotnet plex first invoice median-ms 54.69 bytes 21847
+4 pdfjet-dotnet svgletters first-process-wall-s 0.08 max-rss-kb 43072
+4 pdfjet-dotnet plex first svgletters median-ms 56.02 bytes 14513
+5 pdfjet-dotnet multilingual first-process-wall-s 0.07 max-rss-kb 42676
+5 pdfjet-dotnet plex first multilingual median-ms 41.76 bytes 26392
+5 pdfjet-dotnet statement first-process-wall-s 0.08 max-rss-kb 43700
+5 pdfjet-dotnet plex first statement median-ms 50.06 bytes 43240
+3 pdfjet-dotnet report first-process-wall-s 0.10 max-rss-kb 52520
+3 pdfjet-dotnet plex first report median-ms 68.09 bytes 1819010
+1 pdfjet-dotnet statement first-process-wall-s 0.08 max-rss-kb 43760
+1 pdfjet-dotnet plex first statement median-ms 51.18 bytes 43240
+3 pdfjet-dotnet svgletters first-process-wall-s 0.08 max-rss-kb 42668
+3 pdfjet-dotnet plex first svgletters median-ms 56.18 bytes 14513
+2 pdfjet-dotnet multilingual first-process-wall-s 0.07 max-rss-kb 42788
+2 pdfjet-dotnet plex first multilingual median-ms 41.60 bytes 26392
+4 pdfjet-dotnet statement first-process-wall-s 0.08 max-rss-kb 43660
+4 pdfjet-dotnet plex first statement median-ms 50.30 bytes 43240
+2 pdfjet-dotnet report first-process-wall-s 0.09 max-rss-kb 52468
+2 pdfjet-dotnet plex first report median-ms 67.67 bytes 1819010
+2 pdfjet-dotnet svgletters first-process-wall-s 0.08 max-rss-kb 42980
+2 pdfjet-dotnet plex first svgletters median-ms 55.69 bytes 14513
+4 pdfjet-dotnet multilingual first-process-wall-s 0.07 max-rss-kb 42584
+4 pdfjet-dotnet plex first multilingual median-ms 41.73 bytes 26392
+1 pdfjet-dotnet multilingual first-process-wall-s 0.07 max-rss-kb 42464
+1 pdfjet-dotnet plex first multilingual median-ms 41.94 bytes 26392
+5 pdfjet-dotnet invoice first-process-wall-s 0.08 max-rss-kb 43424
+5 pdfjet-dotnet plex first invoice median-ms 54.41 bytes 21847
+3 pdfjet-dotnet invoice first-process-wall-s 0.08 max-rss-kb 43512
+3 pdfjet-dotnet plex first invoice median-ms 55.08 bytes 21847
+4 pdfjet-dotnet report first-process-wall-s 0.10 max-rss-kb 52388
+4 pdfjet-dotnet plex first report median-ms 67.73 bytes 1819010
+1 pdfjet-dotnet svgletters first-process-wall-s 0.08 max-rss-kb 42940
+1 pdfjet-dotnet plex first svgletters median-ms 55.40 bytes 14513
+2 pdfjet-dotnet invoice first-process-wall-s 0.08 max-rss-kb 43140
+2 pdfjet-dotnet plex first invoice median-ms 54.72 bytes 21847
+1 pdfjet-dotnet report first-process-wall-s 0.10 max-rss-kb 52364
+1 pdfjet-dotnet plex first report median-ms 68.31 bytes 1819010

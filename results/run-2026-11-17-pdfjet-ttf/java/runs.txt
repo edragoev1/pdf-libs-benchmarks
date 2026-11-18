@@ -1,0 +1,204 @@
+1 pdfjet plex invoice median-ms 1.44 min-ms 1.44 max-ms 1.46 bytes 22030 alloc-bytes 1509984
+1 pdfjet plex statement median-ms 3.52 min-ms 3.46 max-ms 3.70 bytes 43910 alloc-bytes 2389208
+1 pdfjet plex statement-table median-ms 4.39 min-ms 4.20 max-ms 4.71 bytes 44180 alloc-bytes 4883848
+1 pdfjet plex report median-ms 5.21 min-ms 5.12 max-ms 5.90 bytes 1820181 alloc-bytes 12012336
+1 pdfjet plex letters median-ms 1203.08 min-ms 1196.75 max-ms 1226.04 bytes 16723 alloc-bytes 1429492
+1 pdfjet plex svgletters median-ms 751.56 min-ms 744.01 max-ms 761.58 bytes 14676 alloc-bytes 963803
+1 pdfjet plex multilingual median-ms 1.25 min-ms 1.24 max-ms 1.31 bytes 26214 alloc-bytes 1019952
+1 pdfbox plex invoice median-ms 3.09 min-ms 3.02 max-ms 3.47 bytes 18660 alloc-bytes 1490216
+1 pdfbox plex statement median-ms 5.84 min-ms 5.82 max-ms 5.91 bytes 42468 alloc-bytes 5644632
+1 pdfbox plex report median-ms 152.04 min-ms 151.26 max-ms 158.01 bytes 1816182 alloc-bytes 29813128
+1 pdfbox plex letters median-ms 2488.89 min-ms 2454.43 max-ms 2501.36 bytes 13451 alloc-bytes 1467528
+1 pdfbox plex svgletters median-ms 1285.75 min-ms 1200.02 max-ms 1290.54 bytes 10959 alloc-bytes 1376065
+1 pdfbox plex multilingual median-ms 1.99 min-ms 1.98 max-ms 2.04 bytes 21922 alloc-bytes 1820168
+1 itext plex invoice median-ms 4.67 min-ms 4.53 max-ms 4.82 bytes 24086 alloc-bytes 3620408
+1 itext plex statement median-ms 72.28 min-ms 71.37 max-ms 75.26 bytes 61988 alloc-bytes 71550272
+1 itext plex report median-ms 24.07 min-ms 23.69 max-ms 25.83 bytes 1824238 alloc-bytes 26846296
+1 itext plex letters median-ms 1984.31 min-ms 1961.82 max-ms 1999.34 bytes 18485 alloc-bytes 1370614
+1 You are using iText under the AGPL.
+1 
+1 If this is your intention, you have published your own source code as AGPL software too.
+1 Please let us know where to find your source code by sending a mail to agpl@apryse.com
+1 We'd be honored to add it to our list of AGPL projects built on top of iText
+1 and we'll explain how to remove this message from your error logs.
+1 
+1 If this wasn't your intention, you are probably using iText in a non-free environment.
+1 In this case, please contact us by filling out this form: http://itextpdf.com/sales
+1 If you are a customer, we'll explain how to install your license key to avoid this message.
+1 If you're not a customer, we'll explain the benefits of becoming a customer.
+1 itext plex svgletters median-ms 1906.36 min-ms 1883.68 max-ms 1915.46 bytes 16648 alloc-bytes 2416101
+1 You are using iText under the AGPL.
+1 
+1 If this is your intention, you have published your own source code as AGPL software too.
+1 Please let us know where to find your source code by sending a mail to agpl@apryse.com
+1 We'd be honored to add it to our list of AGPL projects built on top of iText
+1 and we'll explain how to remove this message from your error logs.
+1 
+1 If this wasn't your intention, you are probably using iText in a non-free environment.
+1 In this case, please contact us by filling out this form: http://itextpdf.com/sales
+1 If you are a customer, we'll explain how to install your license key to avoid this message.
+1 If you're not a customer, we'll explain the benefits of becoming a customer.
+1 itext plex multilingual median-ms 2.53 min-ms 2.51 max-ms 2.55 bytes 30162 alloc-bytes 1817032
+1 openpdf plex invoice median-ms 2.56 min-ms 2.53 max-ms 2.61 bytes 22166 alloc-bytes 2150496
+1 openpdf plex statement median-ms 17.44 min-ms 17.33 max-ms 18.73 bytes 58516 alloc-bytes 56046864
+1 openpdf plex report median-ms 5.91 min-ms 5.80 max-ms 6.08 bytes 1816566 alloc-bytes 13393992
+1 openpdf plex letters median-ms 1915.17 min-ms 1891.18 max-ms 1936.94 bytes 16565 alloc-bytes 1046133
+1 openpdf plex svgletters median-ms 1040.76 min-ms 992.33 max-ms 1068.19 bytes 14527 alloc-bytes 514418
+1 openpdf plex multilingual median-ms 1.45 min-ms 1.44 max-ms 1.47 bytes 25461 alloc-bytes 562600
+2 pdfbox plex invoice median-ms 3.24 min-ms 3.02 max-ms 3.52 bytes 18660 alloc-bytes 1490216
+2 pdfbox plex statement median-ms 5.85 min-ms 5.80 max-ms 5.91 bytes 42468 alloc-bytes 5644632
+2 pdfbox plex report median-ms 152.89 min-ms 151.70 max-ms 157.82 bytes 1816182 alloc-bytes 29812776
+2 pdfbox plex letters median-ms 2501.55 min-ms 2463.97 max-ms 2511.27 bytes 13451 alloc-bytes 1467528
+2 pdfbox plex svgletters median-ms 1279.54 min-ms 1192.79 max-ms 1299.35 bytes 10959 alloc-bytes 1376063
+2 pdfbox plex multilingual median-ms 1.99 min-ms 1.98 max-ms 2.00 bytes 21922 alloc-bytes 1820616
+2 pdfjet plex invoice median-ms 1.46 min-ms 1.45 max-ms 1.47 bytes 22030 alloc-bytes 1511680
+2 pdfjet plex statement median-ms 3.58 min-ms 3.57 max-ms 3.66 bytes 43910 alloc-bytes 2433480
+2 pdfjet plex statement-table median-ms 4.22 min-ms 4.20 max-ms 4.35 bytes 44180 alloc-bytes 4928024
+2 pdfjet plex report median-ms 5.23 min-ms 5.05 max-ms 6.46 bytes 1820181 alloc-bytes 12012288
+2 pdfjet plex letters median-ms 1196.75 min-ms 1195.35 max-ms 1210.51 bytes 16723 alloc-bytes 1429444
+2 pdfjet plex svgletters median-ms 741.80 min-ms 739.66 max-ms 745.46 bytes 14676 alloc-bytes 963755
+2 pdfjet plex multilingual median-ms 1.25 min-ms 1.24 max-ms 2.21 bytes 26214 alloc-bytes 1019904
+2 openpdf plex invoice median-ms 2.56 min-ms 2.52 max-ms 2.66 bytes 22166 alloc-bytes 2150160
+2 openpdf plex statement median-ms 17.58 min-ms 17.19 max-ms 18.41 bytes 58516 alloc-bytes 56046864
+2 openpdf plex report median-ms 5.91 min-ms 5.78 max-ms 7.06 bytes 1816566 alloc-bytes 13393992
+2 openpdf plex letters median-ms 1910.24 min-ms 1888.97 max-ms 1951.71 bytes 16565 alloc-bytes 1046404
+2 openpdf plex svgletters median-ms 1018.78 min-ms 967.24 max-ms 1027.72 bytes 14527 alloc-bytes 514575
+2 openpdf plex multilingual median-ms 1.43 min-ms 1.43 max-ms 1.51 bytes 25461 alloc-bytes 562632
+2 itext plex invoice median-ms 4.49 min-ms 4.38 max-ms 4.70 bytes 24086 alloc-bytes 3622728
+2 itext plex statement median-ms 66.73 min-ms 66.00 max-ms 69.60 bytes 61988 alloc-bytes 71618112
+2 itext plex report median-ms 25.32 min-ms 24.92 max-ms 26.50 bytes 1824238 alloc-bytes 26869560
+2 itext plex letters median-ms 1992.56 min-ms 1970.18 max-ms 2016.53 bytes 18485 alloc-bytes 1371089
+2 You are using iText under the AGPL.
+2 
+2 If this is your intention, you have published your own source code as AGPL software too.
+2 Please let us know where to find your source code by sending a mail to agpl@apryse.com
+2 We'd be honored to add it to our list of AGPL projects built on top of iText
+2 and we'll explain how to remove this message from your error logs.
+2 
+2 If this wasn't your intention, you are probably using iText in a non-free environment.
+2 In this case, please contact us by filling out this form: http://itextpdf.com/sales
+2 If you are a customer, we'll explain how to install your license key to avoid this message.
+2 If you're not a customer, we'll explain the benefits of becoming a customer.
+2 itext plex svgletters median-ms 1886.67 min-ms 1873.08 max-ms 1910.56 bytes 16648 alloc-bytes 2416325
+2 You are using iText under the AGPL.
+2 
+2 If this is your intention, you have published your own source code as AGPL software too.
+2 Please let us know where to find your source code by sending a mail to agpl@apryse.com
+2 We'd be honored to add it to our list of AGPL projects built on top of iText
+2 and we'll explain how to remove this message from your error logs.
+2 
+2 If this wasn't your intention, you are probably using iText in a non-free environment.
+2 In this case, please contact us by filling out this form: http://itextpdf.com/sales
+2 If you are a customer, we'll explain how to install your license key to avoid this message.
+2 If you're not a customer, we'll explain the benefits of becoming a customer.
+2 itext plex multilingual median-ms 2.55 min-ms 2.53 max-ms 2.56 bytes 30162 alloc-bytes 1817704
+3 openpdf plex invoice median-ms 2.59 min-ms 2.56 max-ms 2.62 bytes 22166 alloc-bytes 2150232
+3 openpdf plex statement median-ms 17.08 min-ms 16.87 max-ms 18.10 bytes 58516 alloc-bytes 56046864
+3 openpdf plex report median-ms 6.03 min-ms 5.94 max-ms 6.29 bytes 1816566 alloc-bytes 13393992
+3 openpdf plex letters median-ms 1916.34 min-ms 1904.50 max-ms 1943.39 bytes 16565 alloc-bytes 1046403
+3 openpdf plex svgletters median-ms 988.85 min-ms 979.84 max-ms 1042.58 bytes 14527 alloc-bytes 514479
+3 openpdf plex multilingual median-ms 1.43 min-ms 1.42 max-ms 1.44 bytes 25461 alloc-bytes 562632
+3 pdfjet plex invoice median-ms 1.48 min-ms 1.43 max-ms 1.52 bytes 22030 alloc-bytes 1511632
+3 pdfjet plex statement median-ms 3.50 min-ms 3.49 max-ms 3.52 bytes 43910 alloc-bytes 2434056
+3 pdfjet plex statement-table median-ms 4.24 min-ms 4.23 max-ms 4.74 bytes 44180 alloc-bytes 4928024
+3 pdfjet plex report median-ms 5.14 min-ms 5.09 max-ms 5.20 bytes 1820181 alloc-bytes 12012288
+3 pdfjet plex letters median-ms 1188.44 min-ms 1184.29 max-ms 1206.49 bytes 16723 alloc-bytes 1429444
+3 pdfjet plex svgletters median-ms 737.37 min-ms 726.63 max-ms 740.66 bytes 14676 alloc-bytes 963755
+3 pdfjet plex multilingual median-ms 1.23 min-ms 1.22 max-ms 1.24 bytes 26214 alloc-bytes 1019904
+3 itext plex invoice median-ms 4.60 min-ms 4.53 max-ms 5.50 bytes 24086 alloc-bytes 3614736
+3 itext plex statement median-ms 65.62 min-ms 64.58 max-ms 69.81 bytes 61988 alloc-bytes 71445632
+3 itext plex report median-ms 24.17 min-ms 23.88 max-ms 25.03 bytes 1824238 alloc-bytes 26794200
+3 itext plex letters median-ms 1997.64 min-ms 1972.76 max-ms 2013.83 bytes 18485 alloc-bytes 1369797
+3 You are using iText under the AGPL.
+3 
+3 If this is your intention, you have published your own source code as AGPL software too.
+3 Please let us know where to find your source code by sending a mail to agpl@apryse.com
+3 We'd be honored to add it to our list of AGPL projects built on top of iText
+3 and we'll explain how to remove this message from your error logs.
+3 
+3 If this wasn't your intention, you are probably using iText in a non-free environment.
+3 In this case, please contact us by filling out this form: http://itextpdf.com/sales
+3 If you are a customer, we'll explain how to install your license key to avoid this message.
+3 If you're not a customer, we'll explain the benefits of becoming a customer.
+3 itext plex svgletters median-ms 1922.51 min-ms 1868.72 max-ms 1929.71 bytes 16648 alloc-bytes 2416746
+3 You are using iText under the AGPL.
+3 
+3 If this is your intention, you have published your own source code as AGPL software too.
+3 Please let us know where to find your source code by sending a mail to agpl@apryse.com
+3 We'd be honored to add it to our list of AGPL projects built on top of iText
+3 and we'll explain how to remove this message from your error logs.
+3 
+3 If this wasn't your intention, you are probably using iText in a non-free environment.
+3 In this case, please contact us by filling out this form: http://itextpdf.com/sales
+3 If you are a customer, we'll explain how to install your license key to avoid this message.
+3 If you're not a customer, we'll explain the benefits of becoming a customer.
+3 itext plex multilingual median-ms 2.50 min-ms 2.49 max-ms 2.51 bytes 30162 alloc-bytes 1827768
+3 pdfbox plex invoice median-ms 3.01 min-ms 2.95 max-ms 3.27 bytes 18660 alloc-bytes 1488576
+3 pdfbox plex statement median-ms 5.82 min-ms 5.79 max-ms 5.90 bytes 42468 alloc-bytes 5600664
+3 pdfbox plex report median-ms 152.18 min-ms 151.67 max-ms 155.09 bytes 1816182 alloc-bytes 29813424
+3 pdfbox plex letters median-ms 2489.85 min-ms 2449.74 max-ms 2498.56 bytes 13451 alloc-bytes 1467390
+3 pdfbox plex svgletters median-ms 1287.28 min-ms 1205.59 max-ms 1304.87 bytes 10959 alloc-bytes 1375937
+3 pdfbox plex multilingual median-ms 1.99 min-ms 1.98 max-ms 2.02 bytes 21922 alloc-bytes 1816056
+1 pdfjet noto invoice median-ms 1.47 min-ms 1.46 max-ms 1.50 bytes 18863 alloc-bytes 2572768
+1 pdfjet noto statement median-ms 3.59 min-ms 3.57 max-ms 3.62 bytes 43690 alloc-bytes 3490784
+1 pdfjet noto statement-table median-ms 4.65 min-ms 4.21 max-ms 5.40 bytes 44002 alloc-bytes 5993432
+1 pdfjet noto report median-ms 5.49 min-ms 5.47 max-ms 5.56 bytes 1821689 alloc-bytes 13370800
+1 pdfjet noto svgletters median-ms 848.36 min-ms 840.79 max-ms 850.92 bytes 12632 alloc-bytes 2045242
+1 pdfjet noto multilingual median-ms 1.15 min-ms 1.14 max-ms 1.16 bytes 21453 alloc-bytes 2066440
+1 pdfbox noto invoice median-ms 3.11 min-ms 3.01 max-ms 3.42 bytes 14881 alloc-bytes 2331720
+1 pdfbox noto statement median-ms 5.58 min-ms 5.53 max-ms 5.69 bytes 39394 alloc-bytes 5177472
+1 pdfbox noto report median-ms 149.54 min-ms 148.81 max-ms 151.29 bytes 1814719 alloc-bytes 26317992
+1 pdfbox noto svgletters median-ms 1253.46 min-ms 1231.99 max-ms 1350.85 bytes 8303 alloc-bytes 2223088
+1 pdfbox noto multilingual median-ms 1.71 min-ms 1.69 max-ms 1.76 bytes 16549 alloc-bytes 2475496
+1 itext noto invoice median-ms 5.74 min-ms 5.63 max-ms 6.00 bytes 32824 alloc-bytes 4390520
+1 itext noto statement median-ms 73.09 min-ms 72.30 max-ms 75.80 bytes 71552 alloc-bytes 89457160
+1 itext noto report median-ms 28.13 min-ms 27.83 max-ms 29.47 bytes 1836561 alloc-bytes 31709120
+1 itext noto svgletters median-ms 3070.12 min-ms 3030.03 max-ms 3096.79 bytes 26475 alloc-bytes 2628939
+1 itext noto multilingual median-ms 4.13 min-ms 4.12 max-ms 4.15 bytes 41709 alloc-bytes 2476632
+1 openpdf noto invoice median-ms 3.37 min-ms 3.30 max-ms 5.88 bytes 31539 alloc-bytes 2333768
+1 openpdf noto statement median-ms 17.82 min-ms 17.40 max-ms 18.84 bytes 68400 alloc-bytes 56222312
+1 openpdf noto report median-ms 6.79 min-ms 6.67 max-ms 6.93 bytes 1828172 alloc-bytes 13660888
+1 openpdf noto svgletters median-ms 1819.53 min-ms 1806.65 max-ms 1868.87 bytes 24922 alloc-bytes 719786
+1 openpdf noto multilingual median-ms 1.99 min-ms 1.98 max-ms 2.01 bytes 33250 alloc-bytes 708392
+2 pdfjet noto invoice median-ms 1.47 min-ms 1.46 max-ms 1.53 bytes 18863 alloc-bytes 2573016
+2 pdfjet noto statement median-ms 3.57 min-ms 3.55 max-ms 3.58 bytes 43690 alloc-bytes 3490912
+2 pdfjet noto statement-table median-ms 4.21 min-ms 4.18 max-ms 4.23 bytes 44002 alloc-bytes 5993560
+2 pdfjet noto report median-ms 5.52 min-ms 5.49 max-ms 5.57 bytes 1821689 alloc-bytes 13370928
+2 pdfjet noto svgletters median-ms 839.39 min-ms 836.35 max-ms 844.59 bytes 12632 alloc-bytes 2045146
+2 pdfjet noto multilingual median-ms 1.16 min-ms 1.15 max-ms 1.17 bytes 21453 alloc-bytes 2066568
+2 itext noto invoice median-ms 5.96 min-ms 5.79 max-ms 6.20 bytes 32824 alloc-bytes 4376480
+2 itext noto statement median-ms 71.19 min-ms 70.25 max-ms 83.42 bytes 71552 alloc-bytes 89107760
+2 itext noto report median-ms 28.00 min-ms 27.39 max-ms 28.91 bytes 1836561 alloc-bytes 31592632
+2 itext noto svgletters median-ms 3103.84 min-ms 3063.62 max-ms 3142.38 bytes 26475 alloc-bytes 2625252
+2 itext noto multilingual median-ms 4.14 min-ms 4.12 max-ms 4.17 bytes 41709 alloc-bytes 2473152
+2 pdfbox noto invoice median-ms 3.15 min-ms 3.05 max-ms 3.40 bytes 14881 alloc-bytes 2329528
+2 pdfbox noto statement median-ms 5.42 min-ms 5.40 max-ms 6.98 bytes 39394 alloc-bytes 5176296
+2 pdfbox noto report median-ms 149.62 min-ms 148.87 max-ms 152.23 bytes 1814719 alloc-bytes 26316840
+2 pdfbox noto svgletters median-ms 1229.45 min-ms 1196.05 max-ms 1375.12 bytes 8303 alloc-bytes 2221825
+2 pdfbox noto multilingual median-ms 1.71 min-ms 1.67 max-ms 1.73 bytes 16549 alloc-bytes 2479728
+2 openpdf noto invoice median-ms 3.44 min-ms 3.38 max-ms 3.67 bytes 31539 alloc-bytes 2333848
+2 openpdf noto statement median-ms 17.96 min-ms 17.77 max-ms 18.99 bytes 68400 alloc-bytes 56191544
+2 openpdf noto report median-ms 6.90 min-ms 6.70 max-ms 8.11 bytes 1828172 alloc-bytes 13658920
+2 openpdf noto svgletters median-ms 1840.61 min-ms 1819.11 max-ms 1860.53 bytes 24922 alloc-bytes 719244
+2 openpdf noto multilingual median-ms 2.00 min-ms 1.99 max-ms 2.04 bytes 33250 alloc-bytes 707880
+3 openpdf noto invoice median-ms 3.37 min-ms 3.30 max-ms 5.70 bytes 31539 alloc-bytes 2333968
+3 openpdf noto statement median-ms 18.34 min-ms 18.22 max-ms 19.06 bytes 68400 alloc-bytes 56220992
+3 openpdf noto report median-ms 6.91 min-ms 6.73 max-ms 8.07 bytes 1828172 alloc-bytes 13660888
+3 openpdf noto svgletters median-ms 1817.46 min-ms 1803.52 max-ms 1877.54 bytes 24922 alloc-bytes 719866
+3 openpdf noto multilingual median-ms 1.98 min-ms 1.98 max-ms 2.01 bytes 33250 alloc-bytes 708424
+3 itext noto invoice median-ms 5.82 min-ms 5.73 max-ms 6.33 bytes 32824 alloc-bytes 4388088
+3 itext noto statement median-ms 75.48 min-ms 72.15 max-ms 79.58 bytes 71552 alloc-bytes 89373656
+3 itext noto report median-ms 28.32 min-ms 27.89 max-ms 29.58 bytes 1836561 alloc-bytes 31682024
+3 itext noto svgletters median-ms 3068.30 min-ms 3058.15 max-ms 3103.45 bytes 26475 alloc-bytes 2629541
+3 itext noto multilingual median-ms 4.16 min-ms 4.12 max-ms 4.68 bytes 41709 alloc-bytes 2476560
+3 pdfjet noto invoice median-ms 1.48 min-ms 1.45 max-ms 1.64 bytes 18863 alloc-bytes 2572768
+3 pdfjet noto statement median-ms 3.69 min-ms 3.63 max-ms 4.60 bytes 43690 alloc-bytes 3490784
+3 pdfjet noto statement-table median-ms 4.27 min-ms 4.24 max-ms 4.30 bytes 44002 alloc-bytes 5993432
+3 pdfjet noto report median-ms 5.73 min-ms 5.54 max-ms 5.88 bytes 1821689 alloc-bytes 13370832
+3 pdfjet noto svgletters median-ms 847.83 min-ms 840.52 max-ms 849.70 bytes 12632 alloc-bytes 2045242
+3 pdfjet noto multilingual median-ms 1.16 min-ms 1.15 max-ms 1.19 bytes 21453 alloc-bytes 2066504
+3 pdfbox noto invoice median-ms 3.10 min-ms 3.01 max-ms 3.31 bytes 14881 alloc-bytes 2328080
+3 pdfbox noto statement median-ms 5.48 min-ms 5.45 max-ms 6.52 bytes 39394 alloc-bytes 5131560
+3 pdfbox noto report median-ms 149.98 min-ms 148.91 max-ms 151.92 bytes 1814719 alloc-bytes 26315792
+3 pdfbox noto svgletters median-ms 1286.19 min-ms 1245.69 max-ms 1540.12 bytes 8303 alloc-bytes 2221587
+3 pdfbox noto multilingual median-ms 1.70 min-ms 1.69 max-ms 1.72 bytes 16549 alloc-bytes 2475088

@@ -50,7 +50,10 @@ rounds = defaultdict(list)      # (lib, font, task) -> [(ms, bytes, alloc)]
 first = defaultdict(list)
 process = defaultdict(list)
 for port in ["java", "dotnet", "go", "swift"]:
-    results = os.path.join(HERE, port, "results")
+    # BENCH_RESULTS names a folder of results laid out as results/run-*,
+    # a folder per port; by default each port's own results folder
+    results = (os.path.join(os.environ["BENCH_RESULTS"], port) if os.environ.get("BENCH_RESULTS")
+               else os.path.join(HERE, port, "results"))
     for line in open(os.path.join(results, "runs.txt")):
         m = re.match(r"(\d+) (\S+) (\S+) (\S+) median-ms ([\d.]+) .* bytes (\d+)(?: alloc-bytes (\d+))?", line)
         if m:

@@ -6,7 +6,11 @@ figure is typed by hand. The page keeps the PDF's order and look on one long
 page; the Markdown is the small part of it the article uses: headings,
 paragraphs, lists, tables, bold, italics, code and the repository's address.
 
-    ./make-html.py article.md charts.txt pdf-libs-benchmarks.html
+    ./make-html.py article.md charts.txt pdf-libs-benchmarks.html [article-ttf.md charts-ttf.txt]
+
+Given a second article and charts, those of PDFjet on the .ttf files, the
+page has both, and a switch at the top shows one or the other: each line
+of the page that differs between the two is there twice, the .ttf one hidden.
 """
 import html
 import re
@@ -80,6 +84,18 @@ th, td { border: 1px solid var(--rule); padding: 3px 9px; vertical-align: top; }
 th { background: var(--head); font-weight: 600; text-align: left; }
 .num { text-align: right; white-space: nowrap; }
 td b, th b { font-weight: 600; }
+.fonts { position: sticky; top: 0; z-index: 1; background: #fff; display: flex; flex-wrap: wrap;
+  align-items: center; gap: 6px 12px; padding: 10px 0; margin: 4px 0 0; }
+.fonts b { font-weight: 600; }
+.switch { display: inline-flex; border: 1px solid var(--navy); }
+.switch button { font: inherit; font-size: 14px; border: 0; padding: 4px 12px; background: #fff;
+  color: var(--navy); cursor: pointer; }
+.switch button[aria-pressed="true"] { background: var(--navy); color: #fff; }
+.fonts-note { color: var(--muted); font-size: 13.5px; margin: 6px 0 0; }
+.ttf-only { display: none; }
+.otf-only { display: contents; }
+body.ttf .ttf-only { display: contents; }
+body.ttf .otf-only { display: none; }
 footer { margin-top: 48px; padding-top: 12px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 13px; }
 """
 
@@ -190,8 +206,42 @@ def plain(paragraph):
     return re.sub(r"\s*\n\s*", " ", paragraph).strip()
 
 
+SWITCH = ('<div class="fonts"><b>PDFjet\'s fonts:</b> <span class="switch" role="group" aria-label="PDFjet\'s fonts">'
+          '<button type="button" data-fonts="otf" aria-pressed="true">.otf (CFF)</button>'
+          '<button type="button" data-fonts="ttf" aria-pressed="false">.ttf (TrueType)</button></span></div>'
+          '<p class="fonts-note">PDFjet reads both font formats. .otf fonts make smaller PDFs; the default results use .otf. '
+          'Only PDFjet\'s figures change.</p>')
+SCRIPT = """<script>
+document.querySelectorAll('.switch button').forEach(function (b) {
+  b.addEventListener('click', function () {
+    document.body.classList.toggle('ttf', b.dataset.fonts === 'ttf');
+    document.querySelectorAll('.switch button').forEach(function (o) {
+      o.setAttribute('aria-pressed', String(o === b));
+    });
+  });
+});
+</script>"""
+
+
 def main():
-    article_file, charts_file, out_file = sys.argv[1:4]
+    out_file = sys.argv[3]
+    page = build(sys.argv[1], sys.argv[2], len(sys.argv) == 6)
+    if len(sys.argv) == 6:
+        ttf = build(sys.argv[4], sys.argv[5], True)
+        a, b = page.split("\n"), ttf.split("\n")
+        assert len(a) == len(b), "the two pages differ in more than their figures"
+        lines = []
+        for x, y in zip(a, b):
+            if x == y:
+                lines.append(x)
+            else:
+                lines.append('<div class="otf-only">%s</div>\n<div class="ttf-only">%s</div>' % (x, y))
+        page = "\n".join(lines).replace("</main>", "</main>\n" + SCRIPT)
+    open(out_file, "w", encoding="utf-8").write(page)
+
+
+def build(article_file, charts_file, switch):
+    """The page of an article and its charts, as text."""
     text = open(article_file, encoding="utf-8").read()
     for old, new in ON_ONE_PAGE:
         assert old in text, old
@@ -220,6 +270,7 @@ def main():
             "<b>Noto Sans</b>. The other measurements, the features of each library, the method and the tables "
             "of every figure are further down this page.</p>",
             "<p class=\"author\">%s</p>" % inline(plain(author)), "<p>%s</p>" % inline(plain(ask)),
+            SWITCH if switch else "",
             '<p class="how">Lower is better, and the best is in navy. Each chart starts at zero and is scaled to its own largest value.</p>', charts(groups[0])]
     for group in groups[1:]:
         heading = group[0].split("|", 1)[1]
@@ -229,7 +280,7 @@ def main():
              '<footer>The same results as the PDF report, made from the same files by make-html.py. '
              'Everything needed to check them is in <a href="https://%s">%s</a>.</footer>' % (REPOSITORY, REPOSITORY),
              "</main>\n</body>\n</html>\n"]
-    open(out_file, "w", encoding="utf-8").write("\n".join(page))
+    return "\n".join(p for p in page if p)
 
 
 if __name__ == "__main__":

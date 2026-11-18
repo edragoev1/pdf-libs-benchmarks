@@ -5,15 +5,22 @@
 # same report as one web page (make-html.py).
 #
 #   ./make-report.sh [article.md]   (default ../ARTICLE.md)
+#
+# With PDFJET_TTF set to the results of a run with PDFjet on the .ttf files
+# (run-all.sh with PDFJET_FONTS=ttf, kept as results/run-*), the web page
+# also has PDFjet's figures of that run, beside the other libraries' figures
+# of the main run, with a switch between the two; the PDF has the main run.
 set -e
 cd "$(dirname "$0")"
 ARTICLE=${1:-../ARTICLE.md}
 PDFJET=${PDFJET:-$HOME/Projects/pdfjet}
+TTF=${PDFJET_TTF:+$(realpath "$PDFJET_TTF")}
 ../make-tables.py "$ARTICLE"
 ../make-tables.py --charts charts.txt
 # The article as published: without the draft's note, its open decisions and
 # the markers of the generated tables
-python3 - "$ARTICLE" article.md <<'EOF'
+publish() {
+python3 - "$1" "$2" <<'EOF'
 import re, sys
 s = open(sys.argv[1]).read()
 if '\n---\n\n## Open decisions' in s:
@@ -41,6 +48,35 @@ s = re.sub(r'\*DRAFT,.*?\*\n\n', '', s, flags=re.S)
 s = re.sub(r'\A# [^\n]*\n\n', '', s)
 open(sys.argv[2], 'w').write(s)
 EOF
+}
+publish "$ARTICLE" article.md
+if [ -n "$TTF" ]; then
+    # The main run's results, with PDFjet's lines in every file taken from
+    # the .ttf run: the other libraries' figures stay those of the main run
+    merged=$(mktemp -d)
+    trap 'rm -rf "$merged"' EXIT
+    python3 - "$merged" "$TTF" <<'EOF'
+import os, shutil, sys
+out, ttf = sys.argv[1:3]
+def pdfjet(line, field):
+    f = line.split()
+    return len(f) > field and f[field].lower().startswith("pdfjet")
+for port in ["java", "dotnet", "go", "swift"]:
+    os.makedirs(os.path.join(out, port))
+    main_dir = os.path.join("..", port, "results")
+    for name in os.listdir(main_dir):
+        shutil.copy2(os.path.join(main_dir, name), os.path.join(out, port, name))
+    for name, field in [("runs.txt", 1), ("first.txt", 1), ("memory.txt", 2)]:
+        keep = [l for l in open(os.path.join(main_dir, name)) if not pdfjet(l, field)]
+        new = [l for l in open(os.path.join(ttf, port, name)) if pdfjet(l, field)]
+        assert new, (port, name)
+        open(os.path.join(out, port, name), "w").write("".join(keep + new))
+EOF
+    cp "$ARTICLE" "$merged/article.md"
+    BENCH_RESULTS=$merged ../make-tables.py "$merged/article.md"
+    BENCH_RESULTS=$merged ../make-tables.py --charts charts-ttf.txt
+    publish "$merged/article.md" article-ttf.md
+fi
 rm -rf classes && mkdir classes
 (cd "$PDFJET" && javac -O -encoding utf-8 -nowarn $(find com/pdfjet -name '*.java') -d "$OLDPWD/classes")
 javac -nowarn -encoding utf-8 -cp classes -d classes Report.java
@@ -58,5 +94,5 @@ for f in IBMPlexSans/IBMPlexSans-Regular IBMPlexSans/IBMPlexSans-SemiBold IBMPle
 done
 cp -p "$PDFJET/resources/fonts/IBMPlexSans/license.txt" fonts/IBMPlexSans-license.txt
 cp -p "$PDFJET/resources/fonts/CascadiaMono/LICENSE" fonts/CascadiaMono-license.txt
-./make-html.py article.md charts.txt pdf-libs-benchmarks.html
+./make-html.py article.md charts.txt pdf-libs-benchmarks.html ${TTF:+article-ttf.md charts-ttf.txt}
 echo "pdf-libs-benchmarks.html: $(grep -o 'class="chart"' pdf-libs-benchmarks.html | wc -l) charts"

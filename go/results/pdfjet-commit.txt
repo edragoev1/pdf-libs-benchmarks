@@ -1,1 +1,1 @@
-bb9d9feea 9.1.7: the CHANGELOG dated 2026-11-05
+e60835489 9.1.9: the CHANGELOG dated 2026-11-17, and the install lines of README.md and the world fonts' NuGet README
