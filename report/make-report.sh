@@ -80,7 +80,24 @@ fi
 rm -rf classes && mkdir classes
 (cd "$PDFJET" && javac -O -encoding utf-8 -nowarn $(find com/pdfjet -name '*.java') -d "$OLDPWD/classes")
 javac -nowarn -encoding utf-8 -cp classes -d classes Report.java
-java -cp classes Report article.md charts.txt pdf-libs-benchmarks.pdf
+# The PDF has no switch: with the .ttf run, its charts of the time and the
+# size and memory, PDFjet's figures of that run, are two more pages after
+# the first two
+PDF_CHARTS=charts.txt
+if [ -n "$TTF" ]; then
+    PDF_CHARTS=charts-pdf.txt
+    python3 - charts.txt charts-ttf.txt "$PDF_CHARTS" <<'EOF'
+import sys
+main, ttf = (open(f, encoding="utf-8").read().split("\n") for f in sys.argv[1:3])
+cut = main.index("#page|The first PDF of a fresh process")
+end = ttf.index("#page|The first PDF of a fresh process")
+size = ttf.index("#page|The size of the PDFs and memory")
+extra = (["#page|PDFjet on the .ttf files: time per document"] + ttf[:size]
+         + ["#page|PDFjet on the .ttf files: the size of the PDFs and memory"] + ttf[size + 1:end])
+open(sys.argv[3], "w", encoding="utf-8").write("\n".join(main[:cut] + extra + main[cut:]))
+EOF
+fi
+java -cp classes Report article.md "$PDF_CHARTS" pdf-libs-benchmarks.pdf
 qpdf --check pdf-libs-benchmarks.pdf > /dev/null && echo "pdf-libs-benchmarks.pdf: $(pdfinfo pdf-libs-benchmarks.pdf | awk '/^Pages/ {print $2}') pages, qpdf ok"
 # The same report as one web page, from the same files, with its fonts in
 # fonts/ beside it: PDFjet's IBM Plex Sans and Cascadia Mono, subset to Latin

@@ -137,8 +137,8 @@ Sans**, a much larger font.
 
 **The fonts.** Each library reads the font files it does best with:
 PDFjet the .otf files, the others the .ttf files (SPEC.md says why). The
-switch at the top of the web page shows PDFjet on the .ttf files too: a
-second run of everything the same night, its PDFjet figures shown beside
+switch at the top of the web page, and the PDF's pages "PDFjet on the .ttf
+files", show PDFjet on the .ttf files too: a second run of everything the same night, its PDFjet figures shown beside
 the other libraries' figures of the first run. Both runs' raw results are
 published.
 
