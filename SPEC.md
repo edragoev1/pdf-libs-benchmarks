@@ -14,7 +14,9 @@ documents the same way; the text is generated, so no data file is needed.
   does best with, as a user who knows it would choose: PDFBox, iText and
   OpenPDF the .ttf files (PDFBox cannot subset an .otf of CFF outlines, and
   iText's and OpenPDF's PDFs are larger with one), PDFjet the .otf files
-  (its subset of a CFF font is the smaller). The .otf of IBM Plex Sans is
+  (its subset of a CFF font is the smaller). With FONTS=otf or FONTS=ttf,
+  every library reads that one format instead, to compare; PDFBox then
+  embeds an .otf whole, as it cannot subset one. The .otf of IBM Plex Sans is
   IBM's, of the same version, as PDFjet carries it, and covers every
   character the .ttf does but NUL and the carriage return; that of Noto
   Sans is the CFF build of the same version 2.015, from the Noto project's

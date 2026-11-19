@@ -137,10 +137,12 @@ Sans**, a much larger font.
 
 **The fonts.** Each library reads the font files it does best with:
 PDFjet the .otf files, the others the .ttf files (SPEC.md says why). The
-switch at the top of the web page, and the PDF's pages "PDFjet on the .ttf
-files", show PDFjet on the .ttf files too: a second run of everything the same night, its PDFjet figures shown beside
-the other libraries' figures of the first run. Both runs' raw results are
-published.
+switch at the top of the web page, and pages of their own in the PDF, also
+show every library on the .otf files and every library on the .ttf files.
+Each comes from a second run of everything, and shows the figures of the
+libraries that changed format beside those of the first run. PDFBox cannot
+subset an .otf font, so on the .otf files it embeds each font whole. All
+three runs' raw results are published.
 
 **Method.** Each library in its own fresh JVM, in a random order, three
 rounds; within a JVM the tasks run in the same fixed order for every
