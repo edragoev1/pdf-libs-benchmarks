@@ -6,13 +6,13 @@
 #
 #   ./make-report.sh [article.md]   (default ../ARTICLE.md)
 #
-# The web page has a switch between the .otf and the .ttf files. Its .otf
-# side is the main run (run-all.sh), with the other libraries' figures taken
-# from ALL_OTF if set: a run of every library on the .otf files (FONTS=otf
-# run-all.sh, kept as results/run-*). Its .ttf side, with PDFJET_TTF set to a
-# run of every library on the .ttf files (FONTS=ttf), has PDFjet's figures of
-# that run beside the other libraries' .ttf figures of the main run. The PDF
-# has the .otf side, and PDFjet's .ttf figures on two more pages.
+# The web page has a switch of three: each library on the font files it does
+# best with, the main run (run-all.sh); every library on the .otf files, with
+# ALL_OTF set to a run of FONTS=otf run-all.sh, kept as results/run-*, whose
+# other libraries' figures go beside PDFjet's of the main run; every library
+# on the .ttf files, with PDFJET_TTF set to a run of FONTS=ttf, whose PDFjet
+# figures go beside the other libraries' of the main run. The PDF has the
+# first, and the time, size and memory of the others on more pages.
 set -e
 cd "$(dirname "$0")"
 ARTICLE=${1:-../ARTICLE.md}
@@ -45,14 +45,8 @@ for port in ["java", "dotnet", "go", "swift"]:
         open(os.path.join(out, port, name), "w").write("".join(keep + new))
 EOF
 }
-# The .otf side: with ALL_OTF, the other libraries on the .otf files too
-MAIN=
-if [ -n "$OTF" ]; then
-    MAIN=$tmp/otf
-    merge "$MAIN" "$OTF" others
-fi
-BENCH_RESULTS=$MAIN ../make-tables.py "$ARTICLE"
-BENCH_RESULTS=$MAIN ../make-tables.py --charts charts.txt
+../make-tables.py "$ARTICLE"
+../make-tables.py --charts charts.txt
 # The article as published: without the draft's note, its open decisions and
 # the markers of the generated tables
 publish() {
@@ -86,35 +80,41 @@ open(sys.argv[2], 'w').write(s)
 EOF
 }
 publish "$ARTICLE" article.md
-if [ -n "$TTF" ]; then
-    # The main run's results, with PDFjet's lines in every file taken from
-    # the .ttf run: the other libraries' figures stay those of the main run,
-    # on the .ttf files
-    merged=$tmp/ttf
-    merge "$merged" "$TTF" pdfjet
-    cp "$ARTICLE" "$merged/article.md"
-    BENCH_RESULTS=$merged ../make-tables.py "$merged/article.md"
-    BENCH_RESULTS=$merged ../make-tables.py --charts charts-ttf.txt
-    publish "$merged/article.md" article-ttf.md
-fi
+# view NAME FROM pdfjet|others: the article and charts of a view of the switch
+VIEWS=()
+view() {
+    merge "$tmp/$1" "$2" "$3"
+    cp "$ARTICLE" "$tmp/$1/article.md"
+    BENCH_RESULTS=$tmp/$1 ../make-tables.py "$tmp/$1/article.md"
+    BENCH_RESULTS=$tmp/$1 ../make-tables.py --charts "charts-$1.txt"
+    publish "$tmp/$1/article.md" "article-$1.md"
+    VIEWS+=("$1")
+}
+rm -f article-otf.md charts-otf.txt article-ttf.md charts-ttf.txt
+[ -n "$OTF" ] && view otf "$OTF" others
+[ -n "$TTF" ] && view ttf "$TTF" pdfjet
 rm -rf classes && mkdir classes
 (cd "$PDFJET" && javac -O -encoding utf-8 -nowarn $(find com/pdfjet -name '*.java') -d "$OLDPWD/classes")
 javac -nowarn -encoding utf-8 -cp classes -d classes Report.java
-# The PDF has no switch: with the .ttf run, its charts of the time and the
-# size and memory, PDFjet's figures of that run, are two more pages after
-# the first two
+# The PDF has no switch: the charts of the time and the size and memory of
+# the other views are more pages after the first two
 PDF_CHARTS=charts.txt
-if [ -n "$TTF" ]; then
+if [ ${#VIEWS[@]} -gt 0 ]; then
     PDF_CHARTS=charts-pdf.txt
-    python3 - charts.txt charts-ttf.txt "$PDF_CHARTS" <<'EOF'
+    python3 - "$PDF_CHARTS" "${VIEWS[@]}" <<'EOF'
 import sys
-main, ttf = (open(f, encoding="utf-8").read().split("\n") for f in sys.argv[1:3])
+TITLES = {"otf": "Every library on the .otf files", "ttf": "Every library on the .ttf files"}
+read = lambda f: open(f, encoding="utf-8").read().split("\n")
+main = read("charts.txt")
 cut = main.index("#page|The first PDF of a fresh process")
-end = ttf.index("#page|The first PDF of a fresh process")
-size = ttf.index("#page|The size of the PDFs and memory")
-extra = (["#page|PDFjet on the .ttf files: time per document"] + ttf[:size]
-         + ["#page|PDFjet on the .ttf files: the size of the PDFs and memory"] + ttf[size + 1:end])
-open(sys.argv[3], "w", encoding="utf-8").write("\n".join(main[:cut] + extra + main[cut:]))
+extra = []
+for v in sys.argv[2:]:
+    c = read("charts-%s.txt" % v)
+    end = c.index("#page|The first PDF of a fresh process")
+    size = c.index("#page|The size of the PDFs and memory")
+    extra += (["#page|%s: time per document" % TITLES[v]] + c[:size]
+              + ["#page|%s: the size of the PDFs and memory" % TITLES[v]] + c[size + 1:end])
+open(sys.argv[1], "w", encoding="utf-8").write("\n".join(main[:cut] + extra + main[cut:]))
 EOF
 fi
 java -cp classes Report article.md "$PDF_CHARTS" pdf-libs-benchmarks.pdf
@@ -131,5 +131,5 @@ for f in IBMPlexSans/IBMPlexSans-Regular IBMPlexSans/IBMPlexSans-SemiBold IBMPle
 done
 cp -p "$PDFJET/resources/fonts/IBMPlexSans/license.txt" fonts/IBMPlexSans-license.txt
 cp -p "$PDFJET/resources/fonts/CascadiaMono/LICENSE" fonts/CascadiaMono-license.txt
-./make-html.py article.md charts.txt pdf-libs-benchmarks.html ${TTF:+article-ttf.md charts-ttf.txt}
+./make-html.py article.md charts.txt pdf-libs-benchmarks.html $(for v in "${VIEWS[@]}"; do echo "$v article-$v.md charts-$v.txt"; done)
 echo "pdf-libs-benchmarks.html: $(grep -o 'class="chart"' pdf-libs-benchmarks.html | wc -l) charts"

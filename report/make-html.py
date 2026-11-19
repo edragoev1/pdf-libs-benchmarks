@@ -6,11 +6,13 @@ figure is typed by hand. The page keeps the PDF's order and look on one long
 page; the Markdown is the small part of it the article uses: headings,
 paragraphs, lists, tables, bold, italics, code and the repository's address.
 
-    ./make-html.py article.md charts.txt pdf-libs-benchmarks.html [article-ttf.md charts-ttf.txt]
+    ./make-html.py article.md charts.txt pdf-libs-benchmarks.html [otf article-otf.md charts-otf.txt] [ttf article-ttf.md charts-ttf.txt]
 
-Given a second article and charts, those of PDFjet on the .ttf files, the
-page has both, and a switch at the top shows one or the other: each line
-of the page that differs between the two is there twice, the .ttf one hidden.
+The first article and charts are of each library on the font files it does
+best with. Given those of every library on the .otf files (otf) or on the
+.ttf files (ttf), the page has them all, and a switch at the top shows one:
+each line of the page that differs between them is there once per version,
+the ones not chosen hidden.
 """
 import html
 import re
@@ -92,10 +94,8 @@ td b, th b { font-weight: 600; }
   color: var(--navy); cursor: pointer; }
 .switch button[aria-pressed="true"] { background: var(--navy); color: #fff; }
 .fonts-note { color: var(--muted); font-size: 13.5px; margin: 6px 0 0; }
-.ttf-only { display: none; }
-.otf-only { display: contents; }
-body.ttf .ttf-only { display: contents; }
-body.ttf .otf-only { display: none; }
+.only { display: none; }
+body.v-best .v-best, body.v-otf .v-otf, body.v-ttf .v-ttf { display: contents; }
 footer { margin-top: 48px; padding-top: 12px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 13px; }
 """
 
@@ -206,15 +206,21 @@ def plain(paragraph):
     return re.sub(r"\s*\n\s*", " ", paragraph).strip()
 
 
-SWITCH = ('<div class="fonts"><b>PDFjet\'s fonts:</b> <span class="switch" role="group" aria-label="PDFjet\'s fonts">'
-          '<button type="button" data-fonts="otf" aria-pressed="true">.otf (CFF)</button>'
-          '<button type="button" data-fonts="ttf" aria-pressed="false">.ttf (TrueType)</button></span></div>'
-          '<p class="fonts-note">PDFjet reads both font formats. .otf fonts make smaller PDFs; the default results use .otf. '
-          'Only PDFjet\'s figures change.</p>')
+VIEWS = {"best": "Each its best", "otf": "All .otf", "ttf": "All .ttf"}
+
+
+def switch(views):
+    buttons = "".join('<button type="button" data-fonts="%s" aria-pressed="%s">%s</button>'
+                      % (v, str(v == "best").lower(), html.escape(VIEWS[v])) for v in views)
+    return ('<div class="fonts"><b>Fonts:</b> <span class="switch" role="group" aria-label="Fonts">%s</span></div>'
+            '<p class="fonts-note">Each its best: PDFjet reads the .otf files, the others the .ttf files. '
+            'PDFBox cannot subset an .otf font, so on .otf it embeds the whole font.</p>' % buttons)
+
+
 SCRIPT = """<script>
 document.querySelectorAll('.switch button').forEach(function (b) {
   b.addEventListener('click', function () {
-    document.body.classList.toggle('ttf', b.dataset.fonts === 'ttf');
+    document.body.className = 'v-' + b.dataset.fonts;
     document.querySelectorAll('.switch button').forEach(function (o) {
       o.setAttribute('aria-pressed', String(o === b));
     });
@@ -225,22 +231,30 @@ document.querySelectorAll('.switch button').forEach(function (b) {
 
 def main():
     out_file = sys.argv[3]
-    page = build(sys.argv[1], sys.argv[2], len(sys.argv) == 6)
-    if len(sys.argv) == 6:
-        ttf = build(sys.argv[4], sys.argv[5], True)
-        a, b = page.split("\n"), ttf.split("\n")
-        assert len(a) == len(b), "the two pages differ in more than their figures"
+    rest = sys.argv[4:]
+    assert len(rest) % 3 == 0 and all(v in ("otf", "ttf") for v in rest[0::3]), rest
+    views = ["best"] + rest[0::3]
+    files = [(sys.argv[1], sys.argv[2])] + list(zip(rest[1::3], rest[2::3]))
+    pages = [build(a, c, views) for a, c in files]
+    page = pages[0]
+    if len(pages) > 1:
+        split = [p.split("\n") for p in pages]
+        assert len(set(map(len, split))) == 1, "the pages differ in more than their figures"
         lines = []
-        for x, y in zip(a, b):
-            if x == y:
-                lines.append(x)
-            else:
-                lines.append('<div class="otf-only">%s</div>\n<div class="ttf-only">%s</div>' % (x, y))
-        page = "\n".join(lines).replace("</main>", "</main>\n" + SCRIPT)
+        for versions in zip(*split):
+            if len(set(versions)) == 1:
+                lines.append(versions[0])
+                continue
+            # one div per different line, for the views that have it
+            for line in dict.fromkeys(versions):
+                names = " ".join("v-" + v for v, x in zip(views, versions) if x == line)
+                lines.append('<div class="only %s">%s</div>' % (names, line))
+        page = ("\n".join(lines).replace("<body>", '<body class="v-best">', 1)
+                .replace("</main>", "</main>\n" + SCRIPT))
     open(out_file, "w", encoding="utf-8").write(page)
 
 
-def build(article_file, charts_file, switch):
+def build(article_file, charts_file, views):
     """The page of an article and its charts, as text."""
     text = open(article_file, encoding="utf-8").read()
     for old, new in ON_ONE_PAGE:
@@ -270,7 +284,7 @@ def build(article_file, charts_file, switch):
             "<b>Noto Sans</b>. The other measurements, the features of each library, the method and the tables "
             "of every figure are further down this page.</p>",
             "<p class=\"author\">%s</p>" % inline(plain(author)), "<p>%s</p>" % inline(plain(ask)),
-            SWITCH if switch else "",
+            switch(views) if len(views) > 1 else "",
             '<p class="how">Lower is better, and the best is in navy. Each chart starts at zero and is scaled to its own largest value.</p>', charts(groups[0])]
     for group in groups[1:]:
         heading = group[0].split("|", 1)[1]
