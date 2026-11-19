@@ -1,3 +1,4 @@
+import org.apache.fontbox.ttf.OTFParser;
 import org.apache.fontbox.ttf.TTFParser;
 import org.apache.fontbox.ttf.TrueTypeFont;
 import org.apache.pdfbox.io.RandomAccessReadBuffer;
@@ -28,7 +29,8 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 // gray rectangle, text and a line, new pages started when the next line or
 // row does not fit. "Page n of N" footers are appended to every page after
 // all the pages exist. Fonts: PDType0Font.load(doc, ttf, embedSubset =
-// true) from a TrueTypeFont parsed once per process; images
+// true) from a TrueTypeFont parsed once per process (an .otf, FONTS=otf,
+// embedded whole: PDFBox cannot subset one); images
 // PDImageXObject.createFromByteArray.
 public class PDFBoxFair extends Common {
     public static void main(String[] args) throws Exception {
@@ -45,7 +47,9 @@ public class PDFBoxFair extends Common {
     static PDType0Font font(PDDocument doc, byte[] bytes) throws IOException {
         TrueTypeFont ttf = PARSED.get(bytes);
         if (ttf == null) {
-            ttf = new TTFParser().parse(new RandomAccessReadBuffer(bytes));
+            // An .otf of CFF outlines (FONTS=otf) by the OpenType parser:
+            // the TrueType parser refuses it
+            ttf = (OTF ? new OTFParser() : new TTFParser()).parse(new RandomAccessReadBuffer(bytes));
             // No glyph substitution (GSUB), which the other three libraries do
             // not do either: PDFBox 3 shapes every showText with the font's
             // ligature tables by default, a cost that grows with the table
@@ -55,7 +59,10 @@ public class PDFBoxFair extends Common {
             ttf.setEnableGsub(false);
             PARSED.put(bytes, ttf);
         }
-        return PDType0Font.load(doc, ttf, true);
+        // PDFBox 3 cannot subset an .otf of CFF outlines (on saving: "OTF
+        // fonts do not have a glyf table"), so with FONTS=otf it embeds the
+        // whole font, the one way a PDFBox user has to use the file
+        return PDType0Font.load(doc, ttf, !OTF);
     }
 
     static float width(PDType0Font font, float size, String text) throws IOException {

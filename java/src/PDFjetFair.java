@@ -15,9 +15,9 @@ import com.pdfjet.*;
 public class PDFjetFair extends Common {
     public static void main(String[] args) throws Exception {
         // PDFjet does best with .otf: its subset of a CFF font is of the
-        // glyphs drawn alone, and smaller (SPEC.md). PDFJET_FONTS=ttf has it
-        // read the .ttf files, as the other libraries do, to compare.
-        Common.fontFormat = "ttf".equals(System.getenv("PDFJET_FONTS")) ? ".ttf" : ".otf";
+        // glyphs drawn alone, and smaller (SPEC.md). FONTS=ttf or FONTS=otf
+        // has every library read the one format, to compare.
+        Common.fontFormat = fontFormat(".otf");
         new PDFjetFair().run("pdfjet", args);
     }
 

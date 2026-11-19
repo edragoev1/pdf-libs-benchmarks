@@ -124,9 +124,9 @@ public class OpenPDFFair extends Common {
         Document doc = new Document(PageSize.LETTER, M, M, M, M);
         PdfWriter writer = PdfWriter.getInstance(doc, buf);
         doc.open();
-        BaseFont regularBase = font(REGULAR, "Regular.ttf");
+        BaseFont regularBase = font(REGULAR, "Regular" + fontFormat);
         Font regular = new Font(regularBase, BODY);
-        Font bold = new Font(font(BOLD, "Bold.ttf"), BODY);
+        Font bold = new Font(font(BOLD, "Bold" + fontFormat), BODY);
         Font headingFont = new Font(bold.getBaseFont(), HEADING);
         Font tableRegular = new Font(regularBase, TABLE);
         Font tableBold = new Font(bold.getBaseFont(), TABLE);
@@ -187,8 +187,8 @@ public class OpenPDFFair extends Common {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         Document doc = new Document(PageSize.LETTER, M, M, M, M);
         PdfWriter writer = PdfWriter.getInstance(doc, buf);
-        BaseFont regularBase = font(REGULAR, "Regular.ttf");
-        BaseFont boldBase = font(BOLD, "Bold.ttf");
+        BaseFont regularBase = font(REGULAR, "Regular" + fontFormat);
+        BaseFont boldBase = font(BOLD, "Bold" + fontFormat);
         writer.setPageEvent(new Footer(regularBase, true));
         doc.open();
         doc.add(new Paragraph(HEADING, STATEMENT_TITLE, new Font(boldBase, HEADING)));
@@ -231,8 +231,8 @@ public class OpenPDFFair extends Common {
         // An image that does not fit goes to the next page, and the text after
         // it stays after it (OpenPDF's default moves the text up before it).
         writer.setStrictImageSequence(true);
-        BaseFont regularBase = font(REGULAR, "Regular.ttf");
-        BaseFont boldBase = font(BOLD, "Bold.ttf");
+        BaseFont regularBase = font(REGULAR, "Regular" + fontFormat);
+        BaseFont boldBase = font(BOLD, "Bold" + fontFormat);
         writer.setPageEvent(new Footer(regularBase, false));
         doc.open();
         Font heading = new Font(boldBase, HEADING);
@@ -266,8 +266,8 @@ public class OpenPDFFair extends Common {
         Document doc = new Document(PageSize.LETTER, M, M, M, M);
         PdfWriter.getInstance(doc, buf);
         doc.open();
-        Font body = new Font(font(REGULAR, "Regular.ttf"), BODY);
-        Font heading = new Font(font(BOLD, "Bold.ttf"), HEADING);
+        Font body = new Font(font(REGULAR, "Regular" + fontFormat), BODY);
+        Font heading = new Font(font(BOLD, "Bold" + fontFormat), HEADING);
         Image logo = Image.getInstance(LOGO);
         logo.scaleAbsolute(LOGO_W, LOGO_H);
         doc.add(logo);
@@ -293,8 +293,8 @@ public class OpenPDFFair extends Common {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         Document doc = new Document(PageSize.LETTER, M, M, M, M);
         PdfWriter.getInstance(doc, buf);
-        BaseFont regularBase = font(REGULAR, "Regular.ttf");
-        BaseFont boldBase = font(BOLD, "Bold.ttf");
+        BaseFont regularBase = font(REGULAR, "Regular" + fontFormat);
+        BaseFont boldBase = font(BOLD, "Bold" + fontFormat);
         doc.open();
         Font name = new Font(boldBase, NAME_SIZE);
         Font body = new Font(regularBase, BODY);
@@ -323,8 +323,8 @@ public class OpenPDFFair extends Common {
         Document doc = new Document(PageSize.LETTER, M, M, M, M);
         PdfWriter writer = PdfWriter.getInstance(doc, buf);
         doc.open();
-        Font body = new Font(font(REGULAR, "Regular.ttf"), BODY);
-        Font heading = new Font(font(BOLD, "Bold.ttf"), HEADING);
+        Font body = new Font(font(REGULAR, "Regular" + fontFormat), BODY);
+        Font heading = new Font(font(BOLD, "Bold" + fontFormat), HEADING);
         SVGDocument svg = new SAXSVGDocumentFactory(XMLResourceDescriptor.getXMLParserClassName())
                 .createSVGDocument(null, new ByteArrayInputStream(SVG_LOGO));
         BridgeContext context = new BridgeContext(new UserAgentAdapter());

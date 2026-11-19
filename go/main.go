@@ -47,9 +47,9 @@ func load(family string) {
 		}
 		return b
 	}
-	// .otf, which PDFjet does best with; PDFJET_FONTS=ttf for the .ttf files, to compare
+	// .otf, which PDFjet does best with; FONTS=ttf for the .ttf files, as every library then reads them
 	ext := ".otf"
-	if os.Getenv("PDFJET_FONTS") == "ttf" {
+	if os.Getenv("FONTS") == "ttf" {
 		ext = ".ttf"
 	}
 	if family == "plex" {

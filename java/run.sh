@@ -68,6 +68,7 @@ fi
     java -version 2>&1 | sed -n 1p
     echo "PDFjet $(cat results/pdfjet-version.txt), $(cat results/pdfjet-commit.txt)"
     echo "iText $IT, OpenPDF $OP, PDFBox $BOX"
+    echo "fonts: ${FONTS:+every library .$FONTS}${FONTS:-PDFjet .otf, the others .ttf}"
     echo "cpus $(nproc), $(grep -m1 'model name' /proc/cpuinfo | sed 's/.*: //')"
 } > $ENVFILE
 [ -n "$BUILD_ONLY" ] && { echo "Built."; exit 0; }

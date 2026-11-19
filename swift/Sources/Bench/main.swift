@@ -35,8 +35,8 @@ func read(_ path: String) -> Data {
 }
 let args = CommandLine.arguments
 let family = args[1]
-// .otf, which PDFjet does best with; PDFJET_FONTS=ttf for the .ttf files, to compare
-let ext = ProcessInfo.processInfo.environment["PDFJET_FONTS"] == "ttf" ? ".ttf" : ".otf"
+// .otf, which PDFjet does best with; FONTS=ttf for the .ttf files, as every library then reads them
+let ext = ProcessInfo.processInfo.environment["FONTS"] == "ttf" ? ".ttf" : ".otf"
 let REGULAR = read(family == "plex" ? "fonts/IBMPlexSans/IBMPlexSans-Regular" + ext : "fonts/NotoSans/NotoSans-Regular" + ext)
 let BOLD = read(family == "plex" ? "fonts/IBMPlexSans/IBMPlexSans-SemiBold" + ext : "fonts/NotoSans/NotoSans-Bold" + ext)
 let LOGO = read("images/pdfjet-logo.png")

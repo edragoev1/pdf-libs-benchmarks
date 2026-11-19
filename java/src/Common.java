@@ -193,9 +193,22 @@ abstract class Common {
         return last;
     }
 
-    // The format of the font files a library reads, the one it does best
-    // with: .ttf, but for PDFjet, whose program sets .otf (SPEC.md)
-    static String fontFormat = ".ttf";
+    // The format of the font files a library reads: with FONTS=otf or
+    // FONTS=ttf, that one for every library; without, the one it does best
+    // with, .ttf, but for PDFjet, whose program sets .otf (SPEC.md)
+    static String fontFormat = fontFormat(".ttf");
+    static final boolean OTF = fontFormat.equals(".otf");
+
+    static String fontFormat(String best) {
+        String fonts = System.getenv("FONTS");
+        if (fonts == null || fonts.isEmpty()) {
+            return best;
+        }
+        if (!fonts.equals("otf") && !fonts.equals("ttf")) {
+            throw new IllegalArgumentException("FONTS=" + fonts + ": otf or ttf");
+        }
+        return "." + fonts;
+    }
 
     static void readInputs(String font) throws Exception {
         if (font.equals("plex")) {

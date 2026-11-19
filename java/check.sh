@@ -1,7 +1,8 @@
 #!/bin/bash
 # Checks every PDF in out-*/ as ../SPEC.md says: MuPDF opens it with no
 # warning and counts the expected pages; its text (mutool draw -F txt) has the
-# check strings; pdffonts shows both fonts embedded as subsets; qpdf --check
+# check strings; pdffonts shows both fonts embedded as subsets (with FONTS=otf,
+# PDFBox's embedded whole); qpdf --check
 # passes. Prints a table; exits non-zero if anything fails.
 #
 #   ./check.sh
@@ -44,7 +45,13 @@ for f in out-*/*.pdf; do
     if [ "$font" = noto ]; then family=NotoSans; else family=IBMPlexSans; fi
     pf=$(pdffonts "$f" 2>/dev/null | tail -n +3)
     fontsok=ok
-    good=$(awk -v fam="$family" '$1 ~ ("^[A-Z][A-Z][A-Z][A-Z][A-Z][A-Z][+]" fam) && $(NF-4) == "yes" && $(NF-3) == "yes"' <<< "$pf" | awk '{print $1}' | sort -u | wc -l)
+    # With FONTS=otf, PDFBox embeds the fonts whole (it cannot subset an
+    # .otf of CFF outlines): embedded, no + in the name, sub no.
+    if [ "$FONTS" = otf ] && [ "${name%%-*}" = pdfbox ]; then
+        good=$(awk -v fam="$family" '$1 ~ ("^" fam) && $(NF-4) == "yes" && $(NF-3) == "no"' <<< "$pf" | awk '{print $1}' | sort -u | wc -l)
+    else
+        good=$(awk -v fam="$family" '$1 ~ ("^[A-Z][A-Z][A-Z][A-Z][A-Z][A-Z][+]" fam) && $(NF-4) == "yes" && $(NF-3) == "yes"' <<< "$pf" | awk '{print $1}' | sort -u | wc -l)
+    fi
     rows=$(grep -c . <<< "$pf")
     if [ "$good" != 2 ] || [ "$rows" != 2 ]; then
         fontsok=FAIL; notes="$notes fonts: $(awk '{printf "%s emb=%s sub=%s, ", $1, $(NF-4), $(NF-3)}' <<< "$pf");"

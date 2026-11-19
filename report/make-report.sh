@@ -6,17 +6,53 @@
 #
 #   ./make-report.sh [article.md]   (default ../ARTICLE.md)
 #
-# With PDFJET_TTF set to the results of a run with PDFjet on the .ttf files
-# (run-all.sh with PDFJET_FONTS=ttf, kept as results/run-*), the web page
-# also has PDFjet's figures of that run, beside the other libraries' figures
-# of the main run, with a switch between the two; the PDF has the main run.
+# The web page has a switch between the .otf and the .ttf files. Its .otf
+# side is the main run (run-all.sh), with the other libraries' figures taken
+# from ALL_OTF if set: a run of every library on the .otf files (FONTS=otf
+# run-all.sh, kept as results/run-*). Its .ttf side, with PDFJET_TTF set to a
+# run of every library on the .ttf files (FONTS=ttf), has PDFjet's figures of
+# that run beside the other libraries' .ttf figures of the main run. The PDF
+# has the .otf side, and PDFjet's .ttf figures on two more pages.
 set -e
 cd "$(dirname "$0")"
 ARTICLE=${1:-../ARTICLE.md}
 PDFJET=${PDFJET:-$HOME/Projects/pdfjet}
 TTF=${PDFJET_TTF:+$(realpath "$PDFJET_TTF")}
-../make-tables.py "$ARTICLE"
-../make-tables.py --charts charts.txt
+OTF=${ALL_OTF:+$(realpath "$ALL_OTF")}
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+# merge OUT FROM pdfjet|others: the main run's results copied to OUT, with the
+# lines of PDFjet, or of the other libraries, in every file taken from FROM
+merge() {
+python3 - "$@" <<'EOF'
+import os, shutil, sys
+out, src, which = sys.argv[1:4]
+def pdfjet(line, field):
+    f = line.split()
+    return len(f) > field and f[field].lower().startswith("pdfjet")
+for port in ["java", "dotnet", "go", "swift"]:
+    os.makedirs(os.path.join(out, port))
+    main_dir = os.path.join("..", port, "results")
+    for name in os.listdir(main_dir):
+        shutil.copy2(os.path.join(main_dir, name), os.path.join(out, port, name))
+    if which == "others" and port != "java":
+        continue        # C#, Go and Swift: PDFjet alone
+    for name, field in [("runs.txt", 1), ("first.txt", 1), ("memory.txt", 2)]:
+        take = lambda l: pdfjet(l, field) == (which == "pdfjet")
+        keep = [l for l in open(os.path.join(main_dir, name)) if not take(l)]
+        new = [l for l in open(os.path.join(src, port, name)) if take(l)]
+        assert new, (port, name)
+        open(os.path.join(out, port, name), "w").write("".join(keep + new))
+EOF
+}
+# The .otf side: with ALL_OTF, the other libraries on the .otf files too
+MAIN=
+if [ -n "$OTF" ]; then
+    MAIN=$tmp/otf
+    merge "$MAIN" "$OTF" others
+fi
+BENCH_RESULTS=$MAIN ../make-tables.py "$ARTICLE"
+BENCH_RESULTS=$MAIN ../make-tables.py --charts charts.txt
 # The article as published: without the draft's note, its open decisions and
 # the markers of the generated tables
 publish() {
@@ -52,26 +88,10 @@ EOF
 publish "$ARTICLE" article.md
 if [ -n "$TTF" ]; then
     # The main run's results, with PDFjet's lines in every file taken from
-    # the .ttf run: the other libraries' figures stay those of the main run
-    merged=$(mktemp -d)
-    trap 'rm -rf "$merged"' EXIT
-    python3 - "$merged" "$TTF" <<'EOF'
-import os, shutil, sys
-out, ttf = sys.argv[1:3]
-def pdfjet(line, field):
-    f = line.split()
-    return len(f) > field and f[field].lower().startswith("pdfjet")
-for port in ["java", "dotnet", "go", "swift"]:
-    os.makedirs(os.path.join(out, port))
-    main_dir = os.path.join("..", port, "results")
-    for name in os.listdir(main_dir):
-        shutil.copy2(os.path.join(main_dir, name), os.path.join(out, port, name))
-    for name, field in [("runs.txt", 1), ("first.txt", 1), ("memory.txt", 2)]:
-        keep = [l for l in open(os.path.join(main_dir, name)) if not pdfjet(l, field)]
-        new = [l for l in open(os.path.join(ttf, port, name)) if pdfjet(l, field)]
-        assert new, (port, name)
-        open(os.path.join(out, port, name), "w").write("".join(keep + new))
-EOF
+    # the .ttf run: the other libraries' figures stay those of the main run,
+    # on the .ttf files
+    merged=$tmp/ttf
+    merge "$merged" "$TTF" pdfjet
     cp "$ARTICLE" "$merged/article.md"
     BENCH_RESULTS=$merged ../make-tables.py "$merged/article.md"
     BENCH_RESULTS=$merged ../make-tables.py --charts charts-ttf.txt

@@ -5,7 +5,11 @@
 # own run.sh does it, then the checks of every PDF. The computer is kept from
 # sleeping while it runs; everything goes to results/overnight-<date>.log.
 #
-#   ./run-all.sh
+#   ./run-all.sh              each library on the font files it does best with:
+#                             PDFjet the .otf, the others the .ttf (SPEC.md)
+#   FONTS=ttf ./run-all.sh    every library on the .ttf files
+#   FONTS=otf ./run-all.sh    every library on the .otf files (PDFBox embeds
+#                             them whole: it cannot subset an .otf)
 #
 # Start it from a terminal with nothing else open (each run.sh: "Nothing else
 # should run"), and leave the computer alone. About an hour and a half.
@@ -40,6 +44,7 @@ echo "CPU: $(lscpu | sed -n 's/^Model name: *//p'), $(nproc) threads"
 echo "Kernel: $(uname -r)"
 echo "Memory: $(free -g | awk '/^Mem:/ {print $2}') GB; the JVMs run with their default heap, the same for all four"
 echo "Java: $(java -version 2>&1 | head -1)"
+echo "Fonts: ${FONTS:+every library reads the .$FONTS files}${FONTS:-PDFjet reads the .otf files, the others the .ttf (FONTS=otf or FONTS=ttf for one format for all)}"
 echo "Libraries: $(ls java/lib | grep -E '^(pdfbox|kernel|layout|openpdf)-[0-9]' | tr '\n' ' ')"
 exec_inhibited() {
     status=0

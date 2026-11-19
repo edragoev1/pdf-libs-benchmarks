@@ -44,8 +44,8 @@ static class Bench {
     static void ReadInputs(string family) {
         // The benchmark's folder, run from dotnet/: the fonts and the logo of this benchmark, in its own fonts/ and images/ (5 November 2026: PDFjet 9.1.7 moved its fonts, and has no Noto Sans)
         string root = "../";
-        // .otf, which PDFjet does best with; PDFJET_FONTS=ttf for the .ttf files, to compare
-        string ext = Environment.GetEnvironmentVariable("PDFJET_FONTS") == "ttf" ? ".ttf" : ".otf";
+        // .otf, which PDFjet does best with; FONTS=ttf for the .ttf files, as every library then reads them
+        string ext = Environment.GetEnvironmentVariable("FONTS") == "ttf" ? ".ttf" : ".otf";
         if (family == "plex") {
             REGULAR = File.ReadAllBytes(root + "fonts/IBMPlexSans/IBMPlexSans-Regular" + ext);
             BOLD = File.ReadAllBytes(root + "fonts/IBMPlexSans/IBMPlexSans-SemiBold" + ext);
